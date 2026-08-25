@@ -1,0 +1,32 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main id="main">
+  <section class="page-hero page-hero-services">
+    <div class="page-hero-media"><img src="/images/hero-gears.jpg" alt="" aria-hidden="true"></div>
+    <div class="container page-hero-inner reveal">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><i class="bi bi-chevron-right" aria-hidden="true"></i><span>Услуги</span></nav>
+      <span class="eyebrow light">Производственные возможности</span>
+      <h1>Услуги металлообработки <span>в Минске</span></h1>
+      <p>Изготавливаем детали и технологическую оснастку по чертежам, эскизам и образцам. Выполняем отдельные операции и комплексные заказы.</p>
+      <button class="button button-primary" type="button" data-open-request>Рассчитать заказ <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-heading reveal"><div><span class="eyebrow">Выберите направление</span><h2>Все <span>услуги</span></h2></div><p>На каждой странице — возможности производства, параметры заказа и ответы на частые вопросы.</p></div>
+      <div class="service-grid services-catalog">
+        <% services.forEach((item, index) => { %>
+          <a class="service-card reveal" href="/services/<%= item.slug %>">
+            <div class="service-card-media"><img src="<%= item.image %>" alt="<%= item.shortTitle %>" loading="<%= index < 4 ? 'eager' : 'lazy' %>"></div>
+            <div class="service-card-body"><span class="service-number">0<%= index + 1 %></span><i class="bi <%= item.icon %>" aria-hidden="true"></i><h2><%= item.shortTitle %></h2><p><%= item.lead %></p><span class="text-link">Открыть страницу <i class="bi bi-arrow-up-right" aria-hidden="true"></i></span></div>
+          </a>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+  <section class="cta-section compact">
+    <div class="cta-media"><img src="/images/cnc.jpg" alt="" aria-hidden="true"></div>
+    <div class="container cta-inner reveal"><span class="eyebrow light">Не нашли нужную операцию?</span><h2>Покажите деталь нашему технологу</h2><p>По чертежу или образцу определим подходящий маршрут изготовления.</p><div><button class="button button-primary" type="button" data-open-request>Обсудить задачу</button></div></div>
+  </section>
+</main>
+<%- include('partials/footer') %>

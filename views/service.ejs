@@ -1,0 +1,75 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<% const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.title,
+  description: service.description,
+  provider: { '@type': 'Organization', name: company.legalName, url: siteUrl },
+  areaServed: { '@type': 'Country', name: 'Беларусь' },
+  url: siteUrl + '/services/' + service.slug
+}; %>
+<script type="application/ld+json"><%- JSON.stringify(serviceSchema) %></script>
+<main id="main">
+  <section class="service-hero">
+    <div class="service-hero-media"><img src="<%= service.image %>" alt="<%= service.shortTitle %>" fetchpriority="high"></div>
+    <div class="container service-hero-inner">
+      <div class="service-hero-copy reveal">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><i class="bi bi-chevron-right" aria-hidden="true"></i><a href="/services">Услуги</a><i class="bi bi-chevron-right" aria-hidden="true"></i><span><%= service.navTitle %></span></nav>
+        <span class="eyebrow light">Изготовление по чертежу и образцу</span>
+        <h1><%= service.title %></h1>
+        <p><%= service.lead %></p>
+        <div class="hero-actions"><button class="button button-primary" type="button" data-open-request>Получить расчёт <i class="bi bi-arrow-right" aria-hidden="true"></i></button><a class="button button-ghost" href="tel:<%= company.mobileHref %>">Позвонить</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-quickbar">
+    <div class="container">
+      <span><i class="bi bi-file-earmark-ruled" aria-hidden="true"></i> По чертежу, эскизу или образцу</span>
+      <span><i class="bi bi-box-seam" aria-hidden="true"></i> Единичные и серийные заказы</span>
+      <span><i class="bi bi-geo-alt" aria-hidden="true"></i> Производство в Минске</span>
+    </div>
+  </section>
+
+  <section class="section service-overview">
+    <div class="container two-column">
+      <div class="reveal"><span class="eyebrow">Возможности</span><h2>Что можем <span>изготовить</span></h2><p>Состав операций определяется по документации и требованиям к готовой детали.</p><ul class="check-list"><% service.capabilities.forEach((item) => { %><li><i class="bi bi-check2" aria-hidden="true"></i><%= item %></li><% }) %></ul></div>
+      <div class="spec-card reveal">
+        <span class="spec-icon"><i class="bi <%= service.icon %>" aria-hidden="true"></i></span>
+        <h2>Параметры заказа</h2>
+        <dl><% service.details.forEach((item) => { %><div><dt><%= item[0] %></dt><dd><%= item[1] %></dd></div><% }) %></dl>
+        <button class="button button-primary button-full" type="button" data-open-request>Отправить техническое задание</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark-panel-section">
+    <div class="container">
+      <div class="section-heading light reveal"><div><span class="eyebrow light">Порядок работы</span><h2>От задачи до <span>готовой детали</span></h2></div><p>Чем полнее исходные данные, тем точнее первичный расчёт.</p></div>
+      <div class="mini-process">
+        <div class="reveal"><span>01</span><i class="bi bi-paperclip" aria-hidden="true"></i><h3>Получаем данные</h3><p>Чертёж, модель, фото или образец.</p></div>
+        <div class="reveal"><span>02</span><i class="bi bi-rulers" aria-hidden="true"></i><h3>Уточняем параметры</h3><p>Материал, допуски, количество и срок.</p></div>
+        <div class="reveal"><span>03</span><i class="bi bi-gear-wide-connected" aria-hidden="true"></i><h3>Изготавливаем</h3><p>Выполняем согласованные операции.</p></div>
+        <div class="reveal"><span>04</span><i class="bi bi-shield-check" aria-hidden="true"></i><h3>Контролируем</h3><p>Проверяем размеры и передаём заказ.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section faq-section">
+    <div class="container two-column faq-layout">
+      <div class="faq-intro reveal"><span class="eyebrow">Полезно знать</span><h2>Частые <span>вопросы</span></h2><p>Не нашли ответ? Позвоните или пришлите техническое задание — разберём конкретную задачу.</p><a class="text-link" href="/contacts">Контакты производства <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div>
+      <div class="accordion" data-accordion>
+        <% service.faq.forEach((item, index) => { %>
+          <details class="reveal" <%= index === 0 ? 'open' : '' %>><summary><%= item[0] %><i class="bi bi-plus-lg" aria-hidden="true"></i></summary><div><p><%= item[1] %></p></div></details>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section compact">
+    <div class="cta-media"><img src="<%= service.image %>" alt="" aria-hidden="true"></div>
+    <div class="container cta-inner reveal"><span class="eyebrow light">Расчёт без лишней переписки</span><h2>Пришлите чертёж или опишите задачу</h2><p>Ответим, какие данные нужны для точного расчёта стоимости и срока.</p><div><button class="button button-primary" type="button" data-open-request>Запросить расчёт</button><a href="mailto:<%= company.email %>"><i class="bi bi-envelope" aria-hidden="true"></i> <%= company.email %></a></div></div>
+  </section>
+</main>
+<%- include('partials/footer') %>
