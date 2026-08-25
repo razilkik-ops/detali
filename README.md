@@ -17,6 +17,16 @@ npm run dev
 SITE_URL=https://your-domain.by npm start
 ```
 
+## GitHub Pages
+
+Статическая версия публикуется из каталога `docs/`:
+
+```bash
+npm run build:pages
+```
+
+Публичный адрес: <https://razilkik-ops.github.io/detali/>
+
 ## Страницы
 
 - Главная и каталог всех услуг.

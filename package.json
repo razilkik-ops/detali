@@ -5,9 +5,10 @@
   "description": "Многостраничный сайт ЧПУП СпецТехОснастка",
   "main": "server.js",
   "scripts": {
+    "build:pages": "node scripts/build-pages.js",
     "dev": "node --watch server.js",
     "start": "node server.js",
-    "check": "node --check server.js && node --check data/services.js && node --check public/js/app.js"
+    "check": "node --check server.js && node --check data/services.js && node --check data/company.js && node --check scripts/build-pages.js && node --check public/js/app.js"
   },
   "engines": {
     "node": ">=20"
