@@ -67,7 +67,7 @@ p{color:var(--muted)}
 .brand-mark{display:grid;place-items:center;width:42px;height:42px;color:var(--white);font-size:38px}
 .brand-copy{display:flex;flex-direction:column;line-height:1.1}
 .brand-copy strong{font-size:17px;letter-spacing:-.025em}
-.brand-copy small{margin-top:5px;color:#71bff2;font-size:9px;letter-spacing:.01em}
+.brand-copy small{margin-top:5px;color:#71bff2;font-size:12px;font-weight:600;letter-spacing:.01em}
 .desktop-nav{display:flex;align-items:center;justify-content:center;gap:28px;margin-left:auto}
 .desktop-nav a{position:relative;padding:30px 0 27px;color:#d7e0e7;font-size:12px;font-weight:700}
 .desktop-nav a::after{content:"";position:absolute;left:0;right:100%;bottom:20px;height:2px;background:var(--blue);transition:right .2s}

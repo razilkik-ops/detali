@@ -42,7 +42,7 @@
     status.textContent = document.body.dataset.staticSite === 'true' ? 'Открываем почтовое приложение…' : 'Отправляем…';
     button.disabled = true;
     if (document.body.dataset.staticSite === 'true') {
-      const salesEmail = document.querySelector('a[href^="mailto:"]')?.getAttribute('href')?.replace('mailto:', '') || 'Rogachov89@mail.ru';
+      const salesEmail = document.querySelector('a[href^="mailto:"]')?.getAttribute('href')?.replace('mailto:', '') || 'spetstehosnastka@yandex.by';
       const subject = encodeURIComponent(`Заявка с сайта — ${formData.name}`);
       const body = encodeURIComponent(`Имя: ${formData.name}\nКонтакт: ${formData.contact}\n\n${formData.message || 'Описание не указано'}`);
       status.textContent = `Откроется письмо на ${salesEmail}. Приложите к нему чертёж или фото детали.`;

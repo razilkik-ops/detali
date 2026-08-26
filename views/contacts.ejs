@@ -13,9 +13,9 @@
     <div class="container contact-page-grid">
       <div class="contact-details reveal">
         <span class="eyebrow">Контакты</span><h2><%= company.legalName %></h2>
-        <div class="contact-detail"><i class="bi bi-geo-alt" aria-hidden="true"></i><div><small>Юридический адрес</small><strong><%= company.postalCode %>, <%= company.address %></strong></div></div>
-        <div class="contact-detail"><i class="bi bi-telephone" aria-hidden="true"></i><div><small>Телефон / факс</small><a href="tel:<%= company.phoneHref %>"><%= company.phone %></a></div></div>
-        <div class="contact-detail"><i class="bi bi-phone" aria-hidden="true"></i><div><small>Мобильный телефон</small><a href="tel:<%= company.mobileHref %>"><%= company.mobile %></a></div></div>
+        <a class="contact-detail" href="<%= company.addressUrl %>" target="_blank" rel="noopener noreferrer"><i class="bi bi-geo-alt" aria-hidden="true"></i><div><small>Юридический адрес — открыть карту</small><strong><%= company.postalCode %>, <%= company.address %></strong></div></a>
+        <div class="contact-detail"><i class="bi bi-telephone" aria-hidden="true"></i><div><small>Алексей</small><a href="tel:<%= company.phoneHref %>"><%= company.phone %></a></div></div>
+        <div class="contact-detail"><i class="bi bi-phone" aria-hidden="true"></i><div><small>Евгений</small><a href="tel:<%= company.mobileHref %>"><%= company.mobile %></a></div></div>
         <div class="contact-detail"><i class="bi bi-envelope" aria-hidden="true"></i><div><small>E-mail для заявок и чертежей</small><a href="mailto:<%= company.email %>"><%= company.email %></a></div></div>
         <div class="requisites"><h3>Реквизиты</h3><dl><div><dt>УНП</dt><dd><%= company.unp %></dd></div><div><dt>Расчётный счёт</dt><dd><%= company.bankAccount %></dd></div><div><dt>Банк</dt><dd><%= company.bank %></dd></div><div><dt>BIC</dt><dd><%= company.bic %></dd></div></dl></div>
       </div>
