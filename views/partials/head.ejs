@@ -9,6 +9,7 @@
   <meta name="description" content="<%= meta.description %>">
   <meta name="robots" content="<%= meta.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large' %>">
   <link rel="canonical" href="<%= meta.canonical %>">
+  <% if (meta.redirectTarget) { %><meta http-equiv="refresh" content="0; url=<%= meta.redirectTarget %>"><% } %>
   <link rel="alternate" hreflang="ru-BY" href="<%= meta.canonical %>">
   <link rel="alternate" hreflang="x-default" href="<%= meta.canonical %>">
   <meta property="og:locale" content="ru_BY">
@@ -85,7 +86,7 @@
          '@type': 'ListItem', position: index + 1, name: item.name, item: item.url
        }))
      }); %>
-  <script type="application/ld+json"><%- safeJsonLd({ '@context': 'https://schema.org', '@graph': graph }) %></script>
+  <% if (!meta.redirectTarget) { %><script type="application/ld+json"><%- safeJsonLd({ '@context': 'https://schema.org', '@graph': graph }) %></script><% } %>
 </head>
 <body>
   <a class="skip-link" href="#main">К основному содержимому</a>

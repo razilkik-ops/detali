@@ -10,7 +10,7 @@ const viewsRoot = path.join(projectRoot, 'views');
 const siteUrl = 'https://razilkik-ops.github.io/detali';
 const basePath = '/detali';
 const year = new Date().getFullYear();
-const lastModified = '2026-08-26';
+const lastModified = '2026-08-27';
 const safeJsonLd = (value) => JSON.stringify(value).replace(/</g, '\\u003c');
 
 const metaDefaults = {
@@ -22,6 +22,7 @@ const metaDefaults = {
   preloadImage: '',
   type: 'website',
   noindex: false,
+  redirectTarget: '',
   breadcrumbs: []
 };
 
@@ -43,7 +44,7 @@ const pages = [
     currentPath: '/services',
     meta: {
       title: 'Услуги металлообработки в Минске | СпецТехОснастка',
-      description: 'Все услуги ЧПУП «СпецТехОснастка»: ЧПУ, зубчатые передачи и рейки, пресс-формы, электроэрозия, шлифовка и гибка.',
+      description: 'Все услуги ЧПУП «СпецТехОснастка»: ЧПУ, зубчатые передачи и рейки, пресс-формы, электроэрозия, шлифовка и полировка.',
       canonical: `${siteUrl}/services/`,
       preloadImage: '/images/hero-gears.jpg',
       breadcrumbs: [{ name: 'Главная', url: `${siteUrl}/` }, { name: 'Услуги', url: `${siteUrl}/services/` }]
@@ -79,6 +80,18 @@ const pages = [
       title: 'Страница не найдена | СпецТехОснастка',
       description: 'Запрашиваемая страница не найдена.',
       canonical: `${siteUrl}/404.html`,
+      noindex: true
+    }
+  },
+  {
+    view: 'redirect.ejs',
+    output: 'services/grinding-bending/index.html',
+    currentPath: '/services/grinding-polishing',
+    meta: {
+      title: 'Шлифовка и полировка | СпецТехОснастка',
+      description: 'Страница услуги перемещена на новый URL.',
+      canonical: `${siteUrl}/services/grinding-polishing/`,
+      redirectTarget: `${siteUrl}/services/grinding-polishing/`,
       noindex: true
     }
   },

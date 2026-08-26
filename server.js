@@ -9,7 +9,7 @@ const company = require('./data/company');
 const app = express();
 const port = Number(process.env.PORT) || 4173;
 const siteUrl = (process.env.SITE_URL || `http://localhost:${port}`).replace(/\/$/, '');
-const lastModified = '2026-08-26';
+const lastModified = '2026-08-27';
 const requestLimit = Number.parseInt(process.env.REQUEST_RATE_LIMIT || '10', 10);
 const requestWindowMs = Number.parseInt(process.env.REQUEST_RATE_WINDOW_MS || '900000', 10);
 const trustProxyHops = Number.parseInt(process.env.TRUST_PROXY_HOPS || '0', 10);
@@ -82,11 +82,15 @@ app.get('/', (req, res) => renderPage(res, 'index', {
 
 app.get('/services', (req, res) => renderPage(res, 'services', {
   title: 'Услуги металлообработки в Минске | СпецТехОснастка',
-  description: 'Все услуги ЧПУП «СпецТехОснастка»: ЧПУ, зубчатые передачи и рейки, пресс-формы, электроэрозия, шлифовка и гибка.',
+  description: 'Все услуги ЧПУП «СпецТехОснастка»: ЧПУ, зубчатые передачи и рейки, пресс-формы, электроэрозия, шлифовка и полировка.',
   canonical: `${siteUrl}/services/`,
   preloadImage: '/images/hero-gears.jpg',
   breadcrumbs: [{ name: 'Главная', url: `${siteUrl}/` }, { name: 'Услуги', url: `${siteUrl}/services/` }]
 }));
+
+app.get('/services/grinding-bending', (req, res) => {
+  res.redirect(301, '/services/grinding-polishing/');
+});
 
 app.get('/services/:slug', (req, res, next) => {
   const service = serviceMap.get(req.params.slug);
