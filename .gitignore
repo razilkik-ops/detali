@@ -1,6 +1,16 @@
 node_modules/
 .DS_Store
 .env
+.env.*
+!.env.example
+.npmrc
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.db
+*.log
 npm-debug.log*
 coverage/
 screenshots/

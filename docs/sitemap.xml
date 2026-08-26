@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://razilkik-ops.github.io/detali/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://razilkik-ops.github.io/detali/services/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://razilkik-ops.github.io/detali/contacts/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://razilkik-ops.github.io/detali/services/cnc-machining/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://razilkik-ops.github.io/detali/services/gears/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://razilkik-ops.github.io/detali/services/worm-drives/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://razilkik-ops.github.io/detali/services/molds-dies/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://razilkik-ops.github.io/detali/services/sprockets-shafts/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://razilkik-ops.github.io/detali/services/gear-racks-curved-teeth/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://razilkik-ops.github.io/detali/services/edm/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://razilkik-ops.github.io/detali/services/grinding-bending/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url><loc>https://razilkik-ops.github.io/detali/</loc><lastmod>2026-08-26</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://razilkik-ops.github.io/detali/services/</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://razilkik-ops.github.io/detali/contacts/</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://razilkik-ops.github.io/detali/services/cnc-machining/</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority><image:image><image:loc>https://razilkik-ops.github.io/detali/images/cnc.jpg</image:loc><image:title>ЧПУ: токарные и фрезерные работы</image:title></image:image></url>
+  <url><loc>https://razilkik-ops.github.io/detali/services/gears/</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority><image:image><image:loc>https://razilkik-ops.github.io/detali/images/hero-gears.jpg</image:loc><image:title>Шестерни и зубчатые колёса</image:title></image:image></url>
+  <url><loc>https://razilkik-ops.github.io/detali/services/worm-drives/</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority><image:image><image:loc>https://razilkik-ops.github.io/detali/images/gears.jpg</image:loc><image:title>Червячные и винтовые пары</image:title></image:image></url>
+  <url><loc>https://razilkik-ops.github.io/detali/services/molds-dies/</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority><image:image><image:loc>https://razilkik-ops.github.io/detali/images/molds.jpg</image:loc><image:title>Пресс-формы и штампы</image:title></image:image></url>
+  <url><loc>https://razilkik-ops.github.io/detali/services/sprockets-shafts/</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority><image:image><image:loc>https://razilkik-ops.github.io/detali/images/hero-gears.jpg</image:loc><image:title>Звёздочки, валы и втулки</image:title></image:image></url>
+  <url><loc>https://razilkik-ops.github.io/detali/services/gear-racks-curved-teeth/</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority><image:image><image:loc>https://razilkik-ops.github.io/detali/images/gear-racks.jpg</image:loc><image:title>Зубчатые рейки и шестерни с круговым зубом</image:title></image:image></url>
+  <url><loc>https://razilkik-ops.github.io/detali/services/edm/</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority><image:image><image:loc>https://razilkik-ops.github.io/detali/images/edm.jpg</image:loc><image:title>Электроэрозионная обработка</image:title></image:image></url>
+  <url><loc>https://razilkik-ops.github.io/detali/services/grinding-bending/</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority><image:image><image:loc>https://razilkik-ops.github.io/detali/images/grinding.jpg</image:loc><image:title>Шлифовка и профильная гибка</image:title></image:image></url>
 </urlset>

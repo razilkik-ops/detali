@@ -9,7 +9,7 @@
     </div>
     <div>
       <h2>Услуги</h2>
-      <ul><% services.slice(0, 5).forEach((item) => { %><li><a href="/services/<%= item.slug %>"><%= item.navTitle %></a></li><% }) %></ul>
+      <ul><% services.forEach((item) => { %><li><a href="/services/<%= item.slug %>/"><%= item.navTitle %></a></li><% }) %></ul>
     </div>
     <div>
       <h2>Контакты</h2>
@@ -28,7 +28,7 @@
   </div>
   <div class="container footer-legal">
     <span>© <%= year %> <%= company.legalName %>. УНП <%= company.unp %></span>
-    <a href="/privacy">Обработка персональных данных</a>
+    <a href="/privacy/">Обработка персональных данных</a>
   </div>
 </footer>
 
@@ -42,7 +42,7 @@
     <label>Ваше имя<input name="name" type="text" autocomplete="name" maxlength="100" required placeholder="Например, Алексей"></label>
     <label>Телефон или e-mail<input name="contact" type="text" autocomplete="tel" maxlength="150" required placeholder="+375 ..."></label>
     <label>Что нужно изготовить<textarea name="message" rows="4" maxlength="3000" placeholder="Материал, количество, размеры, срок"></textarea></label>
-    <label class="checkbox"><input name="consent" type="checkbox" required><span>Согласен с <a href="/privacy">политикой обработки данных</a></span></label>
+    <label class="checkbox"><input name="consent" type="checkbox" required><span>Согласен с <a href="/privacy/">политикой обработки данных</a></span></label>
     <button class="button button-primary button-full" type="submit">Отправить заявку <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
     <p class="form-status" role="status" aria-live="polite"></p>
   </form>

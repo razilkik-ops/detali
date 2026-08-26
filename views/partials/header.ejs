@@ -6,10 +6,10 @@
     </a>
     <nav class="desktop-nav" aria-label="Основная навигация">
       <a class="<%= currentPath === '/' ? 'active' : '' %>" href="/">Главная</a>
-      <a class="<%= currentPath.startsWith('/services') ? 'active' : '' %>" href="/services">Услуги</a>
+      <a class="<%= currentPath.startsWith('/services') ? 'active' : '' %>" href="/services/">Услуги</a>
       <a href="/#about">О компании</a>
       <a href="/#process">Как работаем</a>
-      <a class="<%= currentPath === '/contacts' ? 'active' : '' %>" href="/contacts">Контакты</a>
+      <a class="<%= currentPath === '/contacts' ? 'active' : '' %>" href="/contacts/">Контакты</a>
     </nav>
     <div class="header-contacts">
       <a href="tel:<%= company.phoneHref %>"><i class="bi bi-telephone" aria-hidden="true"></i><span><small><%= company.phoneName %></small><strong><%= company.phone %></strong></span></a>
@@ -19,11 +19,11 @@
   <div class="mobile-menu" data-mobile-menu hidden>
     <nav class="container" aria-label="Мобильная навигация">
       <a href="/">Главная</a>
-      <a href="/services">Все услуги</a>
-      <% services.forEach((item) => { %><a class="mobile-sub" href="/services/<%= item.slug %>"><%= item.navTitle %></a><% }) %>
+      <a href="/services/">Все услуги</a>
+      <% services.forEach((item) => { %><a class="mobile-sub" href="/services/<%= item.slug %>/"><%= item.navTitle %></a><% }) %>
       <a href="/#about">О компании</a>
       <a href="/#process">Как работаем</a>
-      <a href="/contacts">Контакты</a>
+      <a href="/contacts/">Контакты</a>
     </nav>
   </div>
 </header>

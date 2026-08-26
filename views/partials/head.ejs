@@ -3,10 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
   <title><%= meta.title %></title>
   <meta name="description" content="<%= meta.description %>">
   <meta name="robots" content="<%= meta.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large' %>">
   <link rel="canonical" href="<%= meta.canonical %>">
+  <link rel="alternate" hreflang="ru-BY" href="<%= meta.canonical %>">
+  <link rel="alternate" hreflang="x-default" href="<%= meta.canonical %>">
   <meta property="og:locale" content="ru_BY">
   <meta property="og:type" content="<%= meta.type %>">
   <meta property="og:site_name" content="СпецТехОснастка">
@@ -14,32 +18,74 @@
   <meta property="og:description" content="<%= meta.description %>">
   <meta property="og:url" content="<%= meta.canonical %>">
   <meta property="og:image" content="<%= meta.image %>">
+  <meta property="og:image:alt" content="<%= meta.imageAlt %>">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= meta.title %>">
+  <meta name="twitter:description" content="<%= meta.description %>">
+  <meta name="twitter:image" content="<%= meta.image %>">
+  <meta name="twitter:image:alt" content="<%= meta.imageAlt %>">
   <meta name="theme-color" content="#07131d">
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <% if (meta.preloadImage) { %><link rel="preload" href="<%= meta.preloadImage %>" as="image" fetchpriority="high"><% } %>
   <link rel="preload" href="/fonts/manrope-cyrillic-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/icons/bootstrap-icons.css">
-  <link rel="stylesheet" href="/css/styles.css?v=5">
-  <script type="application/ld+json"><%- JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: company.legalName,
-    url: siteUrl,
-    logo: siteUrl + '/images/favicon.svg',
-    email: company.email,
-    telephone: company.phoneHref,
-    address: {
-      '@type': 'PostalAddress',
-      postalCode: company.postalCode,
-      addressLocality: 'Минск',
-      streetAddress: 'ул. Зм. Бядули, д. 13, корп. 4, пом. 214',
-      addressCountry: 'BY'
-    },
-    contactPoint: [
-      { '@type': 'ContactPoint', telephone: company.phoneHref, contactType: 'sales', name: company.phoneName, availableLanguage: ['ru'] },
-      { '@type': 'ContactPoint', telephone: company.mobileHref, contactType: 'sales', name: company.mobileName, availableLanguage: ['ru'] }
-    ]
-  }) %></script>
+  <link rel="stylesheet" href="/css/styles.css?v=6">
+  <% const organizationId = siteUrl + '/#organization';
+     const websiteId = siteUrl + '/#website';
+     const graph = [
+       {
+         '@type': 'Organization',
+         '@id': organizationId,
+         name: company.legalName,
+         alternateName: company.name,
+         url: siteUrl + '/',
+         logo: { '@type': 'ImageObject', url: siteUrl + '/images/favicon.svg' },
+         image: siteUrl + '/images/hero-gears.jpg',
+         email: company.email,
+         telephone: [company.phoneHref, company.mobileHref],
+         taxID: company.unp,
+         address: {
+           '@type': 'PostalAddress',
+           postalCode: company.postalCode,
+           addressLocality: 'Минск',
+           streetAddress: 'ул. Зм. Бядули, д. 13, корп. 4, пом. 214',
+           addressCountry: 'BY'
+         },
+         areaServed: { '@type': 'Country', name: 'Беларусь' },
+         knowsAbout: ['металлообработка', 'ЧПУ-обработка', 'шестерни', 'зубчатые передачи', 'пресс-формы'],
+         contactPoint: [
+           { '@type': 'ContactPoint', telephone: company.phoneHref, contactType: 'sales', name: company.phoneName, availableLanguage: ['ru'] },
+           { '@type': 'ContactPoint', telephone: company.mobileHref, contactType: 'sales', name: company.mobileName, availableLanguage: ['ru'] }
+         ]
+       },
+       {
+         '@type': 'WebSite',
+         '@id': websiteId,
+         url: siteUrl + '/',
+         name: company.name,
+         inLanguage: 'ru-BY',
+         publisher: { '@id': organizationId }
+       },
+       {
+         '@type': 'WebPage',
+         '@id': meta.canonical + '#webpage',
+         url: meta.canonical,
+         name: meta.title,
+         description: meta.description,
+         inLanguage: 'ru-BY',
+         isPartOf: { '@id': websiteId },
+         about: { '@id': organizationId },
+         primaryImageOfPage: { '@type': 'ImageObject', url: meta.image }
+       }
+     ];
+     if (meta.breadcrumbs.length > 1) graph.push({
+       '@type': 'BreadcrumbList',
+       '@id': meta.canonical + '#breadcrumb',
+       itemListElement: meta.breadcrumbs.map((item, index) => ({
+         '@type': 'ListItem', position: index + 1, name: item.name, item: item.url
+       }))
+     }); %>
+  <script type="application/ld+json"><%- safeJsonLd({ '@context': 'https://schema.org', '@graph': graph }) %></script>
 </head>
 <body>
   <a class="skip-link" href="#main">К основному содержимому</a>

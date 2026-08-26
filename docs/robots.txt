@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /detali/
-Disallow: /detali/privacy/
 Sitemap: https://razilkik-ops.github.io/detali/sitemap.xml

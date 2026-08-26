@@ -5,10 +5,13 @@
   "description": "Многостраничный сайт ЧПУП СпецТехОснастка",
   "main": "server.js",
   "scripts": {
-    "build:pages": "node scripts/build-pages.js",
+    "build:pages": "node scripts/build-pages.js && node scripts/seo-audit.js && node scripts/audit-public.js",
+    "audit:seo": "node scripts/seo-audit.js",
+    "audit:public": "node scripts/audit-public.js",
     "dev": "node --watch server.js",
     "start": "node server.js",
-    "check": "node --check server.js && node --check data/services.js && node --check data/company.js && node --check scripts/build-pages.js && node --check public/js/app.js"
+    "test": "node --test --test-concurrency=1",
+    "check": "node --check server.js && node --check data/services.js && node --check data/company.js && node --check scripts/build-pages.js && node --check scripts/seo-audit.js && node --check scripts/audit-public.js && node --check public/js/app.js && npm test"
   },
   "engines": {
     "node": ">=20"
@@ -19,6 +22,7 @@
     "compression": "^1.8.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "express-rate-limit": "^8.6.2",
     "helmet": "^8.1.0"
   }
 }

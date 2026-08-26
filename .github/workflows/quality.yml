@@ -1,0 +1,30 @@
+name: Quality and security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Check code and request security tests
+        run: npm run check
+      - name: Build and audit GitHub Pages output
+        run: npm run build:pages
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
