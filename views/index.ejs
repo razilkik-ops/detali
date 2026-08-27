@@ -12,7 +12,7 @@
           <button class="button button-primary" type="button" data-open-request>Рассчитать заказ <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
           <a class="button button-ghost" href="/services/">Смотреть услуги</a>
         </div>
-        <div class="hero-contact"><span>Обсудить задачу:</span><a href="tel:<%= company.phoneHref %>"><%= company.phone %> — <%= company.phoneName %></a></div>
+        <div class="hero-contact"><span>Обсудить задачу:</span><a href="tel:<%= company.mobileHref %>"><%= company.mobile %> — <%= company.mobileName %></a></div>
       </div>
     </div>
   </section>
@@ -95,8 +95,8 @@
       <div class="section-heading reveal"><div><span class="eyebrow">Связаться</span><h2>Контакты <span>производства</span></h2></div><a class="text-link" href="/contacts/">Все реквизиты <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div>
       <div class="contact-cards">
         <a class="contact-card reveal" href="<%= company.addressUrl %>" target="_blank" rel="noopener noreferrer"><i class="bi bi-geo-alt" aria-hidden="true"></i><span><small>Адрес — открыть карту</small><strong><%= company.address %></strong></span></a>
-        <div class="contact-card reveal"><i class="bi bi-telephone" aria-hidden="true"></i><span><small>Алексей</small><a href="tel:<%= company.phoneHref %>"><%= company.phone %></a></span></div>
-        <div class="contact-card reveal"><i class="bi bi-phone" aria-hidden="true"></i><span><small>Евгений</small><a href="tel:<%= company.mobileHref %>"><%= company.mobile %></a></span></div>
+        <div class="contact-card reveal"><i class="bi bi-phone" aria-hidden="true"></i><span><small><%= company.mobileName %></small><a href="tel:<%= company.mobileHref %>"><%= company.mobile %></a></span></div>
+        <div class="contact-card reveal"><i class="bi bi-telephone" aria-hidden="true"></i><span><small><%= company.phoneName %></small><a href="tel:<%= company.phoneHref %>"><%= company.phone %></a></span></div>
         <div class="contact-card reveal"><i class="bi bi-envelope" aria-hidden="true"></i><span><small>E-mail</small><a href="mailto:<%= company.email %>"><%= company.email %></a></span></div>
       </div>
     </div>

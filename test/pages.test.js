@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const { after, before, test } = require('node:test');
 const app = require('../server');
 const { services } = require('../data/services');
+const company = require('../data/company');
 
 let server;
 let origin;
@@ -41,4 +42,7 @@ test('динамические страницы и SEO-файлы отдаютс
   const renamedService = await fetch(`${origin}/services/grinding-bending/`, { redirect: 'manual' });
   assert.equal(renamedService.status, 301);
   assert.equal(renamedService.headers.get('location'), '/services/grinding-polishing/');
+
+  const contacts = await (await fetch(`${origin}/contacts/`)).text();
+  assert.ok(contacts.indexOf(`<small>${company.mobileName}</small>`) < contacts.indexOf(`<small>${company.phoneName}</small>`));
 });

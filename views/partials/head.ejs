@@ -43,7 +43,7 @@
          logo: { '@type': 'ImageObject', url: siteUrl + '/images/favicon.svg' },
          image: siteUrl + '/images/hero-gears.jpg',
          email: company.email,
-         telephone: [company.phoneHref, company.mobileHref],
+         telephone: [company.mobileHref, company.phoneHref],
          taxID: company.unp,
          address: {
            '@type': 'PostalAddress',
@@ -55,8 +55,8 @@
          areaServed: { '@type': 'Country', name: 'Беларусь' },
          knowsAbout: ['металлообработка', 'ЧПУ-обработка', 'шестерни', 'зубчатые передачи', 'пресс-формы'],
          contactPoint: [
-           { '@type': 'ContactPoint', telephone: company.phoneHref, contactType: 'sales', name: company.phoneName, availableLanguage: ['ru'] },
-           { '@type': 'ContactPoint', telephone: company.mobileHref, contactType: 'sales', name: company.mobileName, availableLanguage: ['ru'] }
+           { '@type': 'ContactPoint', telephone: company.mobileHref, contactType: 'sales', name: company.mobileName, availableLanguage: ['ru'] },
+           { '@type': 'ContactPoint', telephone: company.phoneHref, contactType: 'sales', name: company.phoneName, availableLanguage: ['ru'] }
          ]
        },
        {
