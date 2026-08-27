@@ -5,10 +5,11 @@ const company = require('../data/company');
 const { services } = require('../data/services');
 
 const projectRoot = path.resolve(__dirname, '..');
-const outputRoot = path.join(projectRoot, 'docs');
+const outputRoot = path.resolve(projectRoot, process.env.STATIC_OUTPUT_DIR || 'docs');
 const viewsRoot = path.join(projectRoot, 'views');
-const siteUrl = 'https://razilkik-ops.github.io/detali';
-const basePath = '/detali';
+const siteUrl = (process.env.STATIC_SITE_URL || 'https://razilkik-ops.github.io/detali').replace(/\/$/u, '');
+const configuredBasePath = process.env.STATIC_BASE_PATH ?? '/detali';
+const basePath = configuredBasePath === '/' ? '' : `/${configuredBasePath.replace(/^\/+|\/+$/gu, '')}`;
 const year = new Date().getFullYear();
 const lastModified = '2026-08-27';
 const safeJsonLd = (value) => JSON.stringify(value).replace(/</g, '\\u003c');
@@ -171,9 +172,41 @@ async function build() {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${sitemapRows.join('\n')}\n</urlset>\n`;
 
   await fs.writeFile(path.join(outputRoot, 'sitemap.xml'), sitemap);
-  await fs.writeFile(path.join(outputRoot, 'robots.txt'), `User-agent: *\nAllow: /detali/\nSitemap: ${siteUrl}/sitemap.xml\n`);
+  await fs.writeFile(path.join(outputRoot, 'robots.txt'), `User-agent: *\nAllow: ${basePath || '/'}/\nSitemap: ${siteUrl}/sitemap.xml\n`.replace('Allow: //', 'Allow: /'));
   await fs.writeFile(path.join(outputRoot, '.nojekyll'), '');
-  console.log(`GitHub Pages build: ${pages.length} HTML pages → ${outputRoot}`);
+  if (process.env.STATIC_APACHE === '1') {
+    const canonicalHostPattern = new URL(siteUrl).hostname.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
+    const apacheConfig = `Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} !^${canonicalHostPattern}$ [NC]
+  RewriteRule ^ ${siteUrl}%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+`;
+    await fs.writeFile(path.join(outputRoot, '.htaccess'), apacheConfig);
+  }
+  console.log(`Static build: ${pages.length} HTML pages → ${outputRoot} (${siteUrl})`);
 }
 
 build().catch((error) => {

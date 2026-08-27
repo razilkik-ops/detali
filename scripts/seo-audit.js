@@ -2,9 +2,11 @@ const fs = require('node:fs/promises');
 const path = require('node:path');
 
 const projectRoot = path.resolve(__dirname, '..');
-const docsRoot = path.join(projectRoot, 'docs');
-const publishedOrigin = 'https://razilkik-ops.github.io';
-const publishedBasePath = '/detali';
+const docsRoot = path.resolve(projectRoot, process.env.STATIC_OUTPUT_DIR || 'docs');
+const publishedSiteUrl = new URL(process.env.STATIC_SITE_URL || 'https://razilkik-ops.github.io/detali');
+const publishedOrigin = publishedSiteUrl.origin;
+const configuredBasePath = process.env.STATIC_BASE_PATH ?? '/detali';
+const publishedBasePath = configuredBasePath === '/' ? '' : `/${configuredBasePath.replace(/^\/+|\/+$/gu, '')}`;
 
 async function walk(directory) {
   const entries = await fs.readdir(directory, { withFileTypes: true });
@@ -62,7 +64,7 @@ async function audit() {
       if (/^(?:mailto:|tel:|#)/iu.test(href)) continue;
       let target;
       try { target = new URL(href, publishedOrigin); } catch { errors.push(`${relative}: некорректная ссылка ${href}`); continue; }
-      if (target.origin !== publishedOrigin || !target.pathname.startsWith(`${publishedBasePath}/`)) continue;
+      if (target.origin !== publishedOrigin || (publishedBasePath && !target.pathname.startsWith(`${publishedBasePath}/`))) continue;
       try { await fs.access(pageTarget(target.pathname)); } catch { errors.push(`${relative}: внутренняя ссылка ведёт на отсутствующую страницу ${target.pathname}`); }
     }
 

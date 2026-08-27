@@ -27,6 +27,16 @@ npm run build:pages
 
 Публичный адрес: <https://razilkik-ops.github.io/detali/>
 
+Для сборки под отдельный домен можно переопределить адрес, URL-префикс и каталог вывода:
+
+```bash
+STATIC_SITE_URL=https://your-domain.by \
+STATIC_BASE_PATH=/ \
+STATIC_OUTPUT_DIR=dist \
+STATIC_APACHE=1 \
+node scripts/build-pages.js
+```
+
 ## Страницы
 
 - Главная и каталог всех услуг.
