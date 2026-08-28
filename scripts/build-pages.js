@@ -11,7 +11,7 @@ const siteUrl = (process.env.STATIC_SITE_URL || 'https://razilkik-ops.github.io/
 const configuredBasePath = process.env.STATIC_BASE_PATH ?? '/detali';
 const basePath = configuredBasePath === '/' ? '' : `/${configuredBasePath.replace(/^\/+|\/+$/gu, '')}`;
 const year = new Date().getFullYear();
-const lastModified = '2026-08-27';
+const lastModified = '2026-08-28';
 const safeJsonLd = (value) => JSON.stringify(value).replace(/</g, '\\u003c');
 
 const metaDefaults = {
@@ -56,8 +56,8 @@ const pages = [
     output: 'contacts/index.html',
     currentPath: '/contacts',
     meta: {
-      title: 'Контакты и заявка на расчёт | СпецТехОснастка, Минск',
-      description: 'Контакты ЧПУП «СпецТехОснастка» в Минске. Пришлите чертёж или описание детали для расчёта стоимости и срока изготовления.',
+      title: 'Контакты производства | СпецТехОснастка, Минск',
+      description: 'Телефоны и контакты ЧПУП «СпецТехОснастка» в Минске. Позвоните Евгению, чтобы обсудить изготовление деталей.',
       canonical: `${siteUrl}/contacts/`,
       breadcrumbs: [{ name: 'Главная', url: `${siteUrl}/` }, { name: 'Контакты', url: `${siteUrl}/contacts/` }]
     }

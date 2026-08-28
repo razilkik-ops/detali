@@ -78,7 +78,7 @@
         <span class="eyebrow light">Изготовление по чертежу и образцу</span>
         <h1>Звёздочки, валы, оси, втулки и ступицы</h1>
         <p>Производим детали приводов и вращения под стандартные и нестандартные узлы промышленного оборудования.</p>
-        <div class="hero-actions"><button class="button button-primary" type="button" data-open-request>Получить расчёт <i class="bi bi-arrow-right" aria-hidden="true"></i></button><a class="button button-ghost" href="tel:+375447844193">Позвонить</a></div>
+        <div class="hero-actions"><a class="button button-primary" href="tel:+375447844193">Позвонить для расчёта <i class="bi bi-telephone" aria-hidden="true"></i></a></div>
       </div>
     </div>
   </section>
@@ -98,7 +98,7 @@
         <span class="spec-icon"><i class="bi bi-bezier2" aria-hidden="true"></i></span>
         <h2>Параметры заказа</h2>
         <dl><div><dt>Тип заказа</dt><dd>Новая деталь или замена изношенной</dd></div><div><dt>Геометрия</dt><dd>Стандартная и нестандартная, валы длиной до 6000 мм</dd></div><div><dt>Исходные данные</dt><dd>Чертёж, эскиз или физический образец</dd></div><div><dt>Партии</dt><dd>Единичные изделия и повторяющиеся заказы</dd></div></dl>
-        <button class="button button-primary button-full" type="button" data-open-request>Отправить техническое задание</button>
+        <a class="button button-primary button-full" href="tel:+375447844193">Обсудить параметры по телефону</a>
       </div>
     </div>
   </section>
@@ -162,7 +162,7 @@
 
   <section class="cta-section compact">
     <div class="cta-media"><img src="/detali/images/hero-gears.jpg" alt="" width="1672" height="941" loading="lazy" decoding="async" aria-hidden="true"></div>
-    <div class="container cta-inner reveal"><span class="eyebrow light">Расчёт без лишней переписки</span><h2>Пришлите чертёж или опишите задачу</h2><p>Ответим, какие данные нужны для точного расчёта стоимости и срока.</p><div><button class="button button-primary" type="button" data-open-request>Запросить расчёт</button><a href="mailto:spetstehosnastka@yandex.by"><i class="bi bi-envelope" aria-hidden="true"></i> spetstehosnastka@yandex.by</a></div></div>
+    <div class="container cta-inner reveal"><span class="eyebrow light">Прямой контакт</span><h2>Позвоните и обсудите задачу</h2><p>Евгений уточнит, какие данные нужны для расчёта стоимости и срока.</p><div><a class="button button-primary" href="tel:+375447844193"><i class="bi bi-telephone" aria-hidden="true"></i> +375 44 784-41-93</a></div></div>
   </section>
 </main>
 <footer class="site-footer">
@@ -188,9 +188,9 @@
       </ul>
     </div>
     <div class="footer-request">
-      <h2>Есть чертёж?</h2>
-      <p>Отправьте его на почту или оставьте контакты — обсудим технологию и подготовим расчёт.</p>
-      <button class="button button-primary" type="button" data-open-request><i class="bi bi-paperclip" aria-hidden="true"></i> Запросить расчёт</button>
+      <h2>Обсудить задачу</h2>
+      <p>Позвоните Евгению напрямую. Заявки через сайт не принимаются.</p>
+      <a class="button button-primary" href="tel:+375447844193"><i class="bi bi-telephone" aria-hidden="true"></i> +375 44 784-41-93</a>
     </div>
   </div>
   <div class="container footer-legal">
@@ -198,22 +198,6 @@
     <a href="/detali/privacy/">Обработка персональных данных</a>
   </div>
 </footer>
-
-<dialog class="request-dialog" data-request-dialog aria-labelledby="dialog-title">
-  <button class="dialog-close" type="button" aria-label="Закрыть" data-close-request><i class="bi bi-x-lg" aria-hidden="true"></i></button>
-  <div class="dialog-icon"><i class="bi bi-file-earmark-text" aria-hidden="true"></i></div>
-  <p class="eyebrow">Расчёт заказа</p>
-  <h2 id="dialog-title">Расскажите о детали</h2>
-  <p>Оставьте контакт. Чертёж можно приложить ответным письмом на <a href="mailto:spetstehosnastka@yandex.by">spetstehosnastka@yandex.by</a>.</p>
-  <form class="request-form" action="/detali/request" method="post" data-request-form>
-    <label>Ваше имя<input name="name" type="text" autocomplete="name" maxlength="100" required placeholder="Например, Алексей"></label>
-    <label>Телефон или e-mail<input name="contact" type="text" autocomplete="tel" maxlength="150" required placeholder="+375 ..."></label>
-    <label>Что нужно изготовить<textarea name="message" rows="4" maxlength="3000" placeholder="Материал, количество, размеры, срок"></textarea></label>
-    <label class="checkbox"><input name="consent" type="checkbox" required><span>Согласен с <a href="/detali/privacy/">политикой обработки данных</a></span></label>
-    <button class="button button-primary button-full" type="submit">Отправить заявку <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
-    <p class="form-status" role="status" aria-live="polite"></p>
-  </form>
-</dialog>
-<script src="/detali/js/app.js?v=2" defer></script>
+<script src="/detali/js/app.js?v=3" defer></script>
 </body>
 </html>

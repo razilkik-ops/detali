@@ -70,12 +70,12 @@
 <main id="main">
   <section class="simple-hero small"><div class="container reveal"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/detali/">Главная</a><i class="bi bi-chevron-right" aria-hidden="true"></i><span>Политика обработки данных</span></nav><h1>Обработка персональных данных</h1></div></section>
   <article class="section legal-page"><div class="container prose">
-    <p>Настоящая страница описывает фактическую работу формы обратной связи на сайте ЧПУП «СпецТехОснастка».</p>
-    <h2>Какие данные указывает посетитель</h2><p>Имя, телефон или адрес электронной почты, а также описание предполагаемого заказа.</p>
-    <h2>Как работает форма</h2><p>Опубликованная на GitHub Pages версия сайта не отправляет содержимое формы на сервер сайта и не сохраняет его. После подтверждения открывается почтовое приложение посетителя с подготовленным письмом на <a href="mailto:spetstehosnastka@yandex.by">spetstehosnastka@yandex.by</a>.</p>
+    <p>Сайт ЧПУП «СпецТехОснастка» не содержит форм обратной связи и не принимает заявки.</p>
+    <h2>Сбор данных на сайте</h2><p>Посетителю не предлагается вводить имя, телефон, e-mail или описание заказа. Сайт не отправляет и не сохраняет такие данные.</p>
+    <h2>Связь по телефону</h2><p>При нажатии на номер сайт передаёт управление телефонному приложению посетителя. Сайт не получает содержание разговора.</p>
     <h2>Обращения по e-mail</h2><p>Если посетитель отправляет письмо, его содержимое поступает в почтовый ящик компании и используется для ответа на обращение и подготовки расчёта.</p>
     <h2>Контакты оператора</h2><p>ЧПУП «СпецТехОснастка», УНП 192327800, г. Минск, ул. Зм. Бядули, д. 13, корп. 4, пом. 214. E-mail: <a href="mailto:spetstehosnastka@yandex.by">spetstehosnastka@yandex.by</a>.</p>
-    <p class="legal-note">Последнее обновление: 26 августа 2026 года.</p>
+    <p class="legal-note">Последнее обновление: 28 августа 2026 года.</p>
   </div></article>
 </main>
 <footer class="site-footer">
@@ -101,9 +101,9 @@
       </ul>
     </div>
     <div class="footer-request">
-      <h2>Есть чертёж?</h2>
-      <p>Отправьте его на почту или оставьте контакты — обсудим технологию и подготовим расчёт.</p>
-      <button class="button button-primary" type="button" data-open-request><i class="bi bi-paperclip" aria-hidden="true"></i> Запросить расчёт</button>
+      <h2>Обсудить задачу</h2>
+      <p>Позвоните Евгению напрямую. Заявки через сайт не принимаются.</p>
+      <a class="button button-primary" href="tel:+375447844193"><i class="bi bi-telephone" aria-hidden="true"></i> +375 44 784-41-93</a>
     </div>
   </div>
   <div class="container footer-legal">
@@ -111,22 +111,6 @@
     <a href="/detali/privacy/">Обработка персональных данных</a>
   </div>
 </footer>
-
-<dialog class="request-dialog" data-request-dialog aria-labelledby="dialog-title">
-  <button class="dialog-close" type="button" aria-label="Закрыть" data-close-request><i class="bi bi-x-lg" aria-hidden="true"></i></button>
-  <div class="dialog-icon"><i class="bi bi-file-earmark-text" aria-hidden="true"></i></div>
-  <p class="eyebrow">Расчёт заказа</p>
-  <h2 id="dialog-title">Расскажите о детали</h2>
-  <p>Оставьте контакт. Чертёж можно приложить ответным письмом на <a href="mailto:spetstehosnastka@yandex.by">spetstehosnastka@yandex.by</a>.</p>
-  <form class="request-form" action="/detali/request" method="post" data-request-form>
-    <label>Ваше имя<input name="name" type="text" autocomplete="name" maxlength="100" required placeholder="Например, Алексей"></label>
-    <label>Телефон или e-mail<input name="contact" type="text" autocomplete="tel" maxlength="150" required placeholder="+375 ..."></label>
-    <label>Что нужно изготовить<textarea name="message" rows="4" maxlength="3000" placeholder="Материал, количество, размеры, срок"></textarea></label>
-    <label class="checkbox"><input name="consent" type="checkbox" required><span>Согласен с <a href="/detali/privacy/">политикой обработки данных</a></span></label>
-    <button class="button button-primary button-full" type="submit">Отправить заявку <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
-    <p class="form-status" role="status" aria-live="polite"></p>
-  </form>
-</dialog>
-<script src="/detali/js/app.js?v=2" defer></script>
+<script src="/detali/js/app.js?v=3" defer></script>
 </body>
 </html>

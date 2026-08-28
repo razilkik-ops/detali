@@ -37,7 +37,7 @@ test('динамические страницы и SEO-файлы отдаютс
 
   const sitemap = await (await fetch(`${origin}/sitemap.xml`)).text();
   assert.equal((sitemap.match(/<url>/gu) || []).length, 3 + services.length);
-  assert.equal((sitemap.match(/<lastmod>2026-08-27<\/lastmod>/gu) || []).length, 3 + services.length);
+  assert.equal((sitemap.match(/<lastmod>2026-08-28<\/lastmod>/gu) || []).length, 3 + services.length);
 
   const renamedService = await fetch(`${origin}/services/grinding-bending/`, { redirect: 'manual' });
   assert.equal(renamedService.status, 301);

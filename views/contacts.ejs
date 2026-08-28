@@ -6,7 +6,7 @@
       <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><i class="bi bi-chevron-right" aria-hidden="true"></i><span>Контакты</span></nav>
       <span class="eyebrow light">Связаться с производством</span>
       <h1>Обсудим вашу <span>задачу</span></h1>
-      <p>Пришлите чертёж, модель или описание детали. Для быстрого ответа укажите материал, количество и желаемый срок.</p>
+      <p>Позвоните нам и кратко опишите деталь, материал, количество и желаемый срок.</p>
     </div>
   </section>
   <section class="section contact-page">
@@ -19,15 +19,13 @@
         <div class="contact-detail"><i class="bi bi-envelope" aria-hidden="true"></i><div><small>E-mail для заявок и чертежей</small><a href="mailto:<%= company.email %>"><%= company.email %></a></div></div>
         <div class="requisites"><h3>Реквизиты</h3><dl><div><dt>УНП</dt><dd><%= company.unp %></dd></div><div><dt>Расчётный счёт</dt><dd><%= company.bankAccount %></dd></div><div><dt>Банк</dt><dd><%= company.bank %></dd></div><div><dt>BIC</dt><dd><%= company.bic %></dd></div></dl></div>
       </div>
-      <div class="contact-form-card reveal">
-        <span class="eyebrow">Заявка на расчёт</span><h2>Расскажите о детали</h2><p>После заполнения формы чертёж можно отправить на <a href="mailto:<%= company.email %>"><%= company.email %></a>.</p>
-        <form class="request-form" action="/request" method="post" data-request-form>
-          <div class="form-row"><label>Ваше имя<input name="name" type="text" autocomplete="name" maxlength="100" required placeholder="Имя"></label><label>Телефон или e-mail<input name="contact" type="text" autocomplete="tel" maxlength="150" required placeholder="+375 ..."></label></div>
-          <label>Описание задачи<textarea name="message" rows="6" maxlength="3000" placeholder="Что изготовить, материал, количество, срок"></textarea></label>
-          <label class="checkbox"><input name="consent" type="checkbox" required><span>Согласен с <a href="/privacy/">политикой обработки данных</a></span></label>
-          <button class="button button-primary button-full" type="submit">Отправить заявку <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
-          <p class="form-status" role="status" aria-live="polite"></p>
-        </form>
+      <div class="contact-call-card reveal">
+        <span class="eyebrow">Прямой контакт</span>
+        <div class="call-card-icon"><i class="bi bi-telephone" aria-hidden="true"></i></div>
+        <h2>Позвоните Евгению</h2>
+        <p>Сайт не принимает заявки и не собирает контактные данные. Для обсуждения задачи позвоните напрямую.</p>
+        <a class="button button-primary button-full" href="tel:<%= company.mobileHref %>"><i class="bi bi-telephone" aria-hidden="true"></i> <%= company.mobile %></a>
+        <small><%= company.mobileName %> · производство в Минске</small>
       </div>
     </div>
   </section>

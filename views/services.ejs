@@ -8,7 +8,7 @@
       <span class="eyebrow light">Производственные возможности</span>
       <h1>Услуги металлообработки <span>в Минске</span></h1>
       <p>Изготавливаем детали и технологическую оснастку по чертежам, эскизам и образцам. Выполняем отдельные операции и комплексные заказы.</p>
-      <button class="button button-primary" type="button" data-open-request>Рассчитать заказ <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+      <a class="button button-primary" href="tel:<%= company.mobileHref %>">Позвонить для расчёта <i class="bi bi-telephone" aria-hidden="true"></i></a>
     </div>
   </section>
   <section class="section">
@@ -26,7 +26,7 @@
   </section>
   <section class="cta-section compact">
     <div class="cta-media"><img src="/images/cnc.jpg" alt="" width="1536" height="1024" loading="lazy" decoding="async" aria-hidden="true"></div>
-    <div class="container cta-inner reveal"><span class="eyebrow light">Не нашли нужную операцию?</span><h2>Покажите деталь нашему технологу</h2><p>По чертежу или образцу определим подходящий маршрут изготовления.</p><div><button class="button button-primary" type="button" data-open-request>Обсудить задачу</button></div></div>
+    <div class="container cta-inner reveal"><span class="eyebrow light">Не нашли нужную операцию?</span><h2>Обсудите деталь с нашим специалистом</h2><p>Позвоните Евгению: уточним задачу и подходящий маршрут изготовления.</p><div><a class="button button-primary" href="tel:<%= company.mobileHref %>"><i class="bi bi-telephone" aria-hidden="true"></i> <%= company.mobile %></a></div></div>
   </section>
 </main>
 <%- include('partials/footer') %>

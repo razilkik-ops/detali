@@ -2,28 +2,13 @@ const path = require('node:path');
 const express = require('express');
 const compression = require('compression');
 const helmet = require('helmet');
-const { rateLimit } = require('express-rate-limit');
 const { services, serviceMap } = require('./data/services');
 const company = require('./data/company');
 
 const app = express();
 const port = Number(process.env.PORT) || 4173;
 const siteUrl = (process.env.SITE_URL || `http://localhost:${port}`).replace(/\/$/, '');
-const lastModified = '2026-08-27';
-const requestLimit = Number.parseInt(process.env.REQUEST_RATE_LIMIT || '10', 10);
-const requestWindowMs = Number.parseInt(process.env.REQUEST_RATE_WINDOW_MS || '900000', 10);
-const trustProxyHops = Number.parseInt(process.env.TRUST_PROXY_HOPS || '0', 10);
-
-if (!Number.isInteger(requestLimit) || requestLimit < 1 || requestLimit > 1000) {
-  throw new Error('REQUEST_RATE_LIMIT must be an integer between 1 and 1000');
-}
-if (!Number.isInteger(requestWindowMs) || requestWindowMs < 1000 || requestWindowMs > 2147483647) {
-  throw new Error('REQUEST_RATE_WINDOW_MS must be an integer between 1000 and 2147483647');
-}
-if (!Number.isInteger(trustProxyHops) || trustProxyHops < 0 || trustProxyHops > 10) {
-  throw new Error('TRUST_PROXY_HOPS must be an integer between 0 and 10');
-}
-if (trustProxyHops > 0) app.set('trust proxy', trustProxyHops);
+const lastModified = '2026-08-28';
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -38,7 +23,7 @@ app.use(helmet({
       "script-src": ["'self'"],
       "style-src": ["'self'"],
       "font-src": ["'self'", 'data:'],
-      "form-action": ["'self'"],
+      "form-action": ["'none'"],
       "upgrade-insecure-requests": null
     }
   },
@@ -111,8 +96,8 @@ app.get('/services/:slug', (req, res, next) => {
 });
 
 app.get('/contacts', (req, res) => renderPage(res, 'contacts', {
-  title: 'Контакты и заявка на расчёт | СпецТехОснастка, Минск',
-  description: 'Контакты ЧПУП «СпецТехОснастка» в Минске. Пришлите чертёж или описание детали для расчёта стоимости и срока изготовления.',
+  title: 'Контакты производства | СпецТехОснастка, Минск',
+  description: 'Телефоны и контакты ЧПУП «СпецТехОснастка» в Минске. Позвоните Евгению, чтобы обсудить изготовление деталей.',
   canonical: `${siteUrl}/contacts/`,
   breadcrumbs: [{ name: 'Главная', url: `${siteUrl}/` }, { name: 'Контакты', url: `${siteUrl}/contacts/` }]
 }));
@@ -123,70 +108,6 @@ app.get('/privacy', (req, res) => renderPage(res, 'privacy', {
   canonical: `${siteUrl}/privacy/`,
   noindex: true
 }));
-
-const requestLimiter = rateLimit({
-  windowMs: requestWindowMs,
-  limit: requestLimit,
-  standardHeaders: 'draft-8',
-  legacyHeaders: false,
-  message: { ok: false, message: 'Слишком много запросов. Повторите позже или свяжитесь с нами по телефону.' }
-});
-
-const controlCharacters = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/;
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/u;
-const phonePattern = /^\+?[\d\s()-]{7,30}$/u;
-
-function normalizeField(value, maxLength, required = true) {
-  if (typeof value !== 'string') return null;
-  const normalized = value.normalize('NFKC').replace(/\r\n?/g, '\n').trim();
-  if (controlCharacters.test(normalized) || normalized.length > maxLength) return null;
-  if (required && normalized.length === 0) return null;
-  return normalized;
-}
-
-app.post(
-  '/request',
-  (req, res, next) => {
-    res.set('Cache-Control', 'no-store');
-    next();
-  },
-  requestLimiter,
-  express.urlencoded({ extended: false, limit: '32kb', parameterLimit: 10 }),
-  express.json({ limit: '32kb', strict: true }),
-  (req, res) => {
-    if (!req.is(['application/json', 'application/x-www-form-urlencoded'])) {
-      return res.status(415).json({ ok: false, message: 'Поддерживаются только JSON и данные HTML-формы.' });
-    }
-    const body = req.body && typeof req.body === 'object' && !Array.isArray(req.body) ? req.body : {};
-    const name = normalizeField(body.name, 100);
-    const contact = normalizeField(body.contact, 150);
-    const message = normalizeField(body.message ?? '', 3000, false);
-    const consent = body.consent === 'on' || body.consent === true || body.consent === 'true';
-    if (!name || !contact || message === null || !consent) {
-      return res.status(422).json({ ok: false, message: 'Заполните имя и контакт, затем подтвердите согласие.' });
-    }
-    if (!emailPattern.test(contact) && !phonePattern.test(contact)) {
-      return res.status(422).json({ ok: false, message: 'Укажите корректный телефон или e-mail.' });
-    }
-    return res.status(200).json({
-      ok: true,
-      message: `Заявка подготовлена. Для отправки чертежа продублируйте его на ${company.email}.`
-    });
-  }
-);
-
-app.use((error, req, res, next) => {
-  if (req.path !== '/request') return next(error);
-  res.set('Cache-Control', 'no-store');
-  if (error.type === 'entity.too.large' || error.type === 'parameters.too.many') {
-    return res.status(413).json({ ok: false, message: 'Данные формы слишком велики.' });
-  }
-  if (error.type === 'entity.parse.failed' || error instanceof SyntaxError) {
-    return res.status(400).json({ ok: false, message: 'Некорректный формат данных.' });
-  }
-  console.error('Ошибка обработки заявки:', error.message);
-  return res.status(500).json({ ok: false, message: 'Не удалось обработать заявку. Свяжитесь с нами по телефону или e-mail.' });
-});
 
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain').send(`User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`);

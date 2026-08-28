@@ -179,26 +179,6 @@ p{color:var(--muted)}
 .footer-request .button{min-height:48px;font-size:12px}
 .footer-legal{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:22px;padding-bottom:22px;border-top:1px solid var(--line-dark);color:#78909f;font-size:10px}
 
-.request-dialog{width:min(560px,calc(100% - 28px));max-height:calc(100vh - 28px);padding:40px;border:0;border-radius:4px;box-shadow:0 25px 90px rgba(0,0,0,.45)}
-.request-dialog::backdrop{background:rgba(2,10,16,.76);backdrop-filter:blur(4px)}
-.dialog-close{position:absolute;top:16px;right:16px;width:38px;height:38px;border:0;background:var(--paper);color:var(--ink);border-radius:50%}
-.dialog-icon{display:grid;place-items:center;width:58px;height:58px;margin-bottom:22px;background:var(--blue-pale);color:var(--blue);font-size:27px}
-.request-dialog h2{margin-bottom:12px;font-size:34px}
-.request-dialog>p{font-size:14px}
-.request-dialog>p a,.contact-form-card>p a{color:var(--blue);font-weight:700}
-.request-form{display:flex;flex-direction:column;gap:15px;margin-top:23px}
-.request-form label{display:flex;flex-direction:column;gap:7px;color:#41515d;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
-.request-form input,.request-form textarea{width:100%;border:1px solid #cbd7df;border-radius:2px;padding:13px 14px;color:var(--text);background:var(--white);font-size:14px;font-weight:400;text-transform:none;letter-spacing:0;outline:none}
-.request-form input:focus,.request-form textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,143,224,.12)}
-.request-form textarea{resize:vertical}
-.request-form .checkbox{display:grid;grid-template-columns:18px 1fr;gap:9px;align-items:start;text-transform:none;letter-spacing:0;font-weight:500}
-.request-form .checkbox input{margin-top:2px;width:16px;height:16px;accent-color:var(--blue)}
-.checkbox a{color:var(--blue);text-decoration:underline}
-.form-status{display:none;margin:0;padding:11px 13px;background:var(--blue-pale);color:var(--text);font-size:12px}
-.form-status.visible{display:block}
-.form-status.error{background:#fff0f0;color:var(--danger)}
-.form-status.success{background:#eaf8f2;color:var(--success)}
-
 .page-hero,.service-hero{position:relative;overflow:hidden;background:var(--ink);color:var(--white)}
 .page-hero{min-height:520px}
 .page-hero::after{background:rgba(4,13,20,.67)}
@@ -287,9 +267,11 @@ p{color:var(--muted)}
 .requisites dl{margin:0}
 .requisites dl div{display:grid;grid-template-columns:130px 1fr;gap:15px;padding:9px 0;border-bottom:1px solid var(--line)}
 .requisites dt{color:var(--muted);font-size:11px}.requisites dd{margin:0;overflow-wrap:anywhere;font-size:12px;font-weight:600}
-.contact-form-card{padding:45px;background:var(--white);box-shadow:var(--shadow)}
-.contact-form-card h2{margin-bottom:12px;font-size:36px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.contact-call-card{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:45px;background:var(--white);box-shadow:var(--shadow)}
+.contact-call-card h2{margin-bottom:14px;font-size:36px}
+.contact-call-card p{margin-bottom:26px;color:var(--muted);font-size:14px}
+.contact-call-card small{margin-top:14px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.05em}
+.call-card-icon{display:grid;place-items:center;width:64px;height:64px;margin-bottom:25px;background:var(--blue-pale);color:var(--blue);font-size:29px}
 
 .legal-page .prose{max-width:860px}
 .prose h2{margin-top:38px;font-size:26px}
@@ -326,7 +308,7 @@ p{color:var(--muted)}
   .trust-grid{grid-template-columns:1fr 1fr}.trust-grid>div:nth-child(3){border-left:1px solid var(--line-dark);border-top:1px solid var(--line-dark)}.trust-grid>div:nth-child(4){border-top:1px solid var(--line-dark)}
   .about-grid{grid-template-columns:1fr}.about-media{min-height:430px}.about-copy{padding:65px 32px}.capability-numbers{grid-template-columns:repeat(3,1fr)}
   .process-grid{grid-template-columns:1fr 1fr;gap:38px 0}.process-grid::before{display:none}.process-grid li:last-child{grid-column:1/-1;max-width:50%;justify-self:center}
-  .contact-page-grid{grid-template-columns:1fr;gap:50px}.contact-form-card{padding:35px}
+  .contact-page-grid{grid-template-columns:1fr;gap:50px}.contact-call-card{padding:35px}
   .service-hero-copy{width:100%}.service-hero::after{background:rgba(3,12,19,.76)}
   .service-quickbar .container{grid-template-columns:1fr}.service-quickbar span{justify-content:flex-start;border-left:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark)}
   .two-column{grid-template-columns:1fr}.faq-intro{position:static}.mini-process{grid-template-columns:1fr 1fr}.mini-process>div:nth-child(2){border-right:0}.mini-process>div:nth-child(-n+2){border-bottom:1px solid var(--line-dark)}
@@ -343,10 +325,9 @@ p{color:var(--muted)}
   .process-grid{grid-template-columns:1fr}.process-grid li:last-child{grid-column:auto;max-width:none}.process-icon{width:82px;height:82px}
   .cta-inner>div{align-items:flex-start;flex-direction:column}.contact-cards{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr;gap:35px}.footer-legal{align-items:flex-start;flex-direction:column}
-  .request-dialog{padding:30px 22px}.dialog-close{top:10px;right:10px}.request-dialog h2{font-size:29px}
   .page-hero,.page-hero-inner{min-height:490px}.page-hero-inner h1,.service-hero-copy h1{font-size:40px}.service-hero,.service-hero-inner{min-height:560px}
   .mini-process{grid-template-columns:1fr}.mini-process>div{border-right:0;border-bottom:1px solid var(--line-dark)}.mini-process>div:last-child{border-bottom:0}
-  .spec-card{padding:29px 22px}.spec-card dl div{grid-template-columns:1fr;gap:4px}.contact-form-card{padding:28px 20px}.form-row{grid-template-columns:1fr}
+  .spec-card{padding:29px 22px}.spec-card dl div{grid-template-columns:1fr;gap:4px}.contact-call-card{padding:28px 20px}.contact-call-card h2{font-size:30px}
   .context-card{padding:29px 22px}
   .contact-page-grid{gap:35px}.requisites{padding:22px}.requisites dl div{grid-template-columns:100px 1fr}
   .not-found>div>div{flex-direction:column}.error-code{font-size:94px}

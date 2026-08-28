@@ -21,9 +21,9 @@
       </ul>
     </div>
     <div class="footer-request">
-      <h2>Есть чертёж?</h2>
-      <p>Отправьте его на почту или оставьте контакты — обсудим технологию и подготовим расчёт.</p>
-      <button class="button button-primary" type="button" data-open-request><i class="bi bi-paperclip" aria-hidden="true"></i> Запросить расчёт</button>
+      <h2>Обсудить задачу</h2>
+      <p>Позвоните Евгению напрямую. Заявки через сайт не принимаются.</p>
+      <a class="button button-primary" href="tel:<%= company.mobileHref %>"><i class="bi bi-telephone" aria-hidden="true"></i> <%= company.mobile %></a>
     </div>
   </div>
   <div class="container footer-legal">
@@ -31,22 +31,6 @@
     <a href="/privacy/">Обработка персональных данных</a>
   </div>
 </footer>
-
-<dialog class="request-dialog" data-request-dialog aria-labelledby="dialog-title">
-  <button class="dialog-close" type="button" aria-label="Закрыть" data-close-request><i class="bi bi-x-lg" aria-hidden="true"></i></button>
-  <div class="dialog-icon"><i class="bi bi-file-earmark-text" aria-hidden="true"></i></div>
-  <p class="eyebrow">Расчёт заказа</p>
-  <h2 id="dialog-title">Расскажите о детали</h2>
-  <p>Оставьте контакт. Чертёж можно приложить ответным письмом на <a href="mailto:<%= company.email %>"><%= company.email %></a>.</p>
-  <form class="request-form" action="/request" method="post" data-request-form>
-    <label>Ваше имя<input name="name" type="text" autocomplete="name" maxlength="100" required placeholder="Например, Алексей"></label>
-    <label>Телефон или e-mail<input name="contact" type="text" autocomplete="tel" maxlength="150" required placeholder="+375 ..."></label>
-    <label>Что нужно изготовить<textarea name="message" rows="4" maxlength="3000" placeholder="Материал, количество, размеры, срок"></textarea></label>
-    <label class="checkbox"><input name="consent" type="checkbox" required><span>Согласен с <a href="/privacy/">политикой обработки данных</a></span></label>
-    <button class="button button-primary button-full" type="submit">Отправить заявку <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
-    <p class="form-status" role="status" aria-live="polite"></p>
-  </form>
-</dialog>
-<script src="/js/app.js?v=2" defer></script>
+<script src="/js/app.js?v=3" defer></script>
 </body>
 </html>

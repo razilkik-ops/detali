@@ -2,7 +2,6 @@
   const header = document.querySelector('[data-header]');
   const menuButton = document.querySelector('[data-menu-toggle]');
   const mobileMenu = document.querySelector('[data-mobile-menu]');
-  const dialog = document.querySelector('[data-request-dialog]');
 
   const updateHeader = () => header?.classList.toggle('scrolled', window.scrollY > 12);
   updateHeader();
@@ -22,55 +21,6 @@
     mobileMenu.hidden = true;
     document.body.classList.remove('menu-open');
     menuButton?.setAttribute('aria-expanded', 'false');
-  }));
-
-  document.querySelectorAll('[data-open-request]').forEach((button) => button.addEventListener('click', () => {
-    if (dialog?.showModal) dialog.showModal();
-  }));
-  document.querySelector('[data-close-request]')?.addEventListener('click', () => dialog?.close());
-  dialog?.addEventListener('click', (event) => {
-    const bounds = dialog.getBoundingClientRect();
-    const outside = event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
-    if (outside) dialog.close();
-  });
-
-  const submitForm = async (form) => {
-    const status = form.querySelector('.form-status');
-    const button = form.querySelector('button[type="submit"]');
-    const formData = Object.fromEntries(new FormData(form).entries());
-    status.className = 'form-status visible';
-    status.textContent = document.body.dataset.staticSite === 'true' ? 'Открываем почтовое приложение…' : 'Отправляем…';
-    button.disabled = true;
-    if (document.body.dataset.staticSite === 'true') {
-      const salesEmail = document.querySelector('a[href^="mailto:"]')?.getAttribute('href')?.replace('mailto:', '') || 'spetstehosnastka@yandex.by';
-      const subject = encodeURIComponent(`Заявка с сайта — ${formData.name}`);
-      const body = encodeURIComponent(`Имя: ${formData.name}\nКонтакт: ${formData.contact}\n\n${formData.message || 'Описание не указано'}`);
-      status.textContent = `Откроется письмо на ${salesEmail}. Приложите к нему чертёж или фото детали.`;
-      status.classList.add('success');
-      window.location.href = `mailto:${salesEmail}?subject=${subject}&body=${body}`;
-      button.disabled = false;
-      return;
-    }
-    try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(formData)
-      });
-      const result = await response.json();
-      status.textContent = result.message;
-      status.classList.add(result.ok ? 'success' : 'error');
-      if (result.ok) form.reset();
-    } catch {
-      status.textContent = 'Не удалось отправить форму. Позвоните нам или напишите на e-mail.';
-      status.classList.add('error');
-    } finally {
-      button.disabled = false;
-    }
-  };
-  document.querySelectorAll('[data-request-form]').forEach((form) => form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (form.reportValidity()) submitForm(form);
   }));
 
   const revealItems = document.querySelectorAll('.reveal');
