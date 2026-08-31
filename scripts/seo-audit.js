@@ -31,7 +31,9 @@ function pageTarget(urlPath) {
 }
 
 async function audit() {
-  const htmlFiles = (await walk(docsRoot)).filter((file) => file.endsWith('.html'));
+  const htmlFiles = (await walk(docsRoot)).filter((file) => (
+    file.endsWith('.html') && !/^yandex_[0-9a-f]+\.html$/u.test(path.basename(file))
+  ));
   const errors = [];
   const indexablePages = [];
   const titleOwners = new Map();
