@@ -46,7 +46,9 @@ test('динамические страницы и SEO-файлы отдаютс
   const contacts = await (await fetch(`${origin}/contacts/`)).text();
   assert.ok(contacts.indexOf(`<small>${company.mobileName}</small>`) < contacts.indexOf(`<small>${company.phoneName}</small>`));
 
-  const yandexVerification = await fetch(`${origin}/yandex_e8ef4bca1be3bbc5.html`);
-  assert.equal(yandexVerification.status, 200);
-  assert.match(await yandexVerification.text(), /<body>Verification: e8ef4bca1be3bbc5<\/body>/u);
+  for (const token of ['e8ef4bca1be3bbc5', '533d69dd42471b38']) {
+    const yandexVerification = await fetch(`${origin}/yandex_${token}.html`);
+    assert.equal(yandexVerification.status, 200);
+    assert.match(await yandexVerification.text(), new RegExp(`<body>Verification: ${token}<\\/body>`, 'u'));
+  }
 });
