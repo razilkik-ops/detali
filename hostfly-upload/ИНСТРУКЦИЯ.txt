@@ -1,0 +1,9 @@
+1. Откройте cPanel -> File Manager.
+2. Перейдите в /home/spetsteh — это домашняя папка уровнем выше public_html.
+3. Загрузите сюда файл telegram.env. НЕ загружайте его в public_html.
+4. Нажмите по telegram.env правой кнопкой -> Edit.
+5. В строке TELEGRAM_BOT_TOKEN= вставьте новый токен от BotFather сразу после знака =.
+6. Строку TELEGRAM_CHAT_ID=561625665 оставьте без изменений.
+7. Сохраните файл и задайте ему права 600 через Permissions.
+
+Итоговый путь должен быть: /home/spetsteh/telegram.env

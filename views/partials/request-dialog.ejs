@@ -1,0 +1,27 @@
+<dialog class="request-dialog" data-request-dialog aria-labelledby="request-title">
+  <div class="request-dialog-panel">
+    <button class="request-dialog-close" type="button" aria-label="Закрыть форму" data-request-close><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+    <div class="request-dialog-heading">
+      <span class="eyebrow">Заявка на изготовление</span>
+      <h2 id="request-title">Расскажите о вашей задаче</h2>
+      <p>Оставьте контакты и краткое описание. Евгений свяжется с вами для уточнения параметров и расчёта.</p>
+    </div>
+    <form class="request-form" action="<%= formAction %>" method="post" data-request-form>
+      <div class="request-form-grid">
+        <label class="form-field"><span>Ваше имя <b aria-hidden="true">*</b></span><input type="text" name="name" autocomplete="name" minlength="2" maxlength="80" required></label>
+        <label class="form-field"><span>Телефон <b aria-hidden="true">*</b></span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" maxlength="32" placeholder="+375 29 000-00-00" required></label>
+        <label class="form-field"><span>E-mail</span><input type="email" name="email" autocomplete="email" maxlength="120" placeholder="Для ответа и документов"></label>
+        <label class="form-field"><span>Услуга</span><select name="service" data-request-service><option value="">Выберите направление</option><% services.forEach((item) => { %><option value="<%= item.navTitle %>"><%= item.navTitle %></option><% }) %><option value="Другое">Другое</option></select></label>
+        <label class="form-field form-field-full"><span>Описание задачи <b aria-hidden="true">*</b></span><textarea name="message" rows="5" minlength="10" maxlength="2000" placeholder="Что нужно изготовить, материал, количество и желаемый срок" required></textarea></label>
+        <label class="form-honeypot" aria-hidden="true">Ваш сайт<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        <input type="hidden" name="source" value="">
+      </div>
+      <label class="form-consent"><input type="checkbox" name="consent" value="1" required><span>Согласен на обработку указанных данных для ответа на заявку согласно <a href="/privacy/" target="_blank" rel="noopener">политике обработки данных</a>.</span></label>
+      <div class="request-form-actions">
+        <button class="button button-primary" type="submit" data-request-submit><i class="bi bi-send" aria-hidden="true"></i> Отправить заявку</button>
+        <a class="button button-secondary" href="tel:<%= company.mobileHref %>"><i class="bi bi-telephone" aria-hidden="true"></i> Позвонить</a>
+      </div>
+      <p class="form-status" role="status" aria-live="polite" data-request-status></p>
+    </form>
+  </div>
+</dialog>

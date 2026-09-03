@@ -35,7 +35,7 @@
         <span class="eyebrow light">Изготовление по чертежу и образцу</span>
         <h1><%= service.title %></h1>
         <p><%= service.lead %></p>
-        <div class="hero-actions"><a class="button button-primary" href="tel:<%= company.mobileHref %>">Позвонить для расчёта <i class="bi bi-telephone" aria-hidden="true"></i></a></div>
+        <div class="hero-actions"><button class="button button-primary" type="button" data-request-open data-service="<%= service.navTitle %>">Оставить заявку <i class="bi bi-send" aria-hidden="true"></i></button><a class="button button-ghost" href="tel:<%= company.mobileHref %>">Позвонить <i class="bi bi-telephone" aria-hidden="true"></i></a></div>
       </div>
     </div>
   </section>
@@ -55,7 +55,8 @@
         <span class="spec-icon"><i class="bi <%= service.icon %>" aria-hidden="true"></i></span>
         <h2>Параметры заказа</h2>
         <dl><% service.details.forEach((item) => { %><div><dt><%= item[0] %></dt><dd><%= item[1] %></dd></div><% }) %></dl>
-        <a class="button button-primary button-full" href="tel:<%= company.mobileHref %>">Обсудить параметры по телефону</a>
+        <button class="button button-primary button-full" type="button" data-request-open data-service="<%= service.navTitle %>">Запросить расчёт</button>
+        <a class="spec-phone-link" href="tel:<%= company.mobileHref %>"><i class="bi bi-telephone" aria-hidden="true"></i> Позвонить для обсуждения</a>
       </div>
     </div>
   </section>
@@ -111,7 +112,7 @@
 
   <section class="cta-section compact">
     <div class="cta-media"><img src="<%= service.image %>" alt="" width="<%= service.image === '/images/hero-gears.jpg' ? 1672 : 1536 %>" height="<%= service.image === '/images/hero-gears.jpg' ? 941 : 1024 %>" loading="lazy" decoding="async" aria-hidden="true"></div>
-    <div class="container cta-inner reveal"><span class="eyebrow light">Прямой контакт</span><h2>Позвоните и обсудите задачу</h2><p>Евгений уточнит, какие данные нужны для расчёта стоимости и срока.</p><div><a class="button button-primary" href="tel:<%= company.mobileHref %>"><i class="bi bi-telephone" aria-hidden="true"></i> <%= company.mobile %></a></div></div>
+    <div class="container cta-inner reveal"><span class="eyebrow light">Заявка на расчёт</span><h2>Расскажите о задаче удобным способом</h2><p>Отправьте описание через форму или позвоните. Евгений уточнит данные для расчёта стоимости и срока.</p><div><button class="button button-primary" type="button" data-request-open data-service="<%= service.navTitle %>"><i class="bi bi-send" aria-hidden="true"></i> Оставить заявку</button><a class="button button-ghost" href="tel:<%= company.mobileHref %>"><i class="bi bi-telephone" aria-hidden="true"></i> Позвонить</a></div></div>
   </section>
 </main>
 <%- include('partials/footer') %>

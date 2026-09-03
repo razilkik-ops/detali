@@ -23,6 +23,75 @@
     menuButton?.setAttribute('aria-expanded', 'false');
   }));
 
+  const requestDialog = document.querySelector('[data-request-dialog]');
+  const requestForm = requestDialog?.querySelector('[data-request-form]');
+  const requestStatus = requestDialog?.querySelector('[data-request-status]');
+  const requestSubmit = requestDialog?.querySelector('[data-request-submit]');
+  const requestService = requestDialog?.querySelector('[data-request-service]');
+
+  const setRequestStatus = (message = '', state = '') => {
+    if (!requestStatus) return;
+    requestStatus.textContent = message;
+    requestStatus.dataset.state = state;
+  };
+
+  const openRequestDialog = (trigger) => {
+    if (!requestDialog) return;
+    const requestedService = trigger?.dataset.service || '';
+    if (requestService && [...requestService.options].some((option) => option.value === requestedService)) {
+      requestService.value = requestedService;
+    }
+    setRequestStatus();
+    if (typeof requestDialog.showModal === 'function') requestDialog.showModal();
+    else requestDialog.setAttribute('open', '');
+    requestDialog.querySelector('input:not([type="hidden"])')?.focus();
+  };
+
+  document.querySelectorAll('[data-request-open]').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      mobileMenu && (mobileMenu.hidden = true);
+      document.body.classList.remove('menu-open');
+      menuButton?.setAttribute('aria-expanded', 'false');
+      openRequestDialog(trigger);
+    });
+  });
+
+  requestDialog?.querySelector('[data-request-close]')?.addEventListener('click', () => requestDialog.close());
+  requestDialog?.addEventListener('click', (event) => {
+    if (event.target === requestDialog) requestDialog.close();
+  });
+
+  requestForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!requestForm.reportValidity()) return;
+
+    const payload = Object.fromEntries(new FormData(requestForm).entries());
+    payload.consent = requestForm.elements.consent.checked;
+    payload.source = window.location.href;
+    setRequestStatus('Отправляем заявку…', 'pending');
+    requestForm.setAttribute('aria-busy', 'true');
+    if (requestSubmit) requestSubmit.disabled = true;
+
+    try {
+      const response = await fetch(requestForm.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || result.ok !== true) {
+        throw new Error(result.message || 'Не удалось отправить заявку. Попробуйте ещё раз.');
+      }
+      requestForm.reset();
+      setRequestStatus(result.message, 'success');
+    } catch (error) {
+      setRequestStatus(error instanceof Error ? error.message : 'Не удалось отправить заявку. Позвоните нам напрямую.', 'error');
+    } finally {
+      requestForm.removeAttribute('aria-busy');
+      if (requestSubmit) requestSubmit.disabled = false;
+    }
+  });
+
   const revealItems = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const observer = new IntersectionObserver((entries) => {

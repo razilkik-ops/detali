@@ -9,8 +9,8 @@
         <h1><span class="hero-title-line hero-title-white">Изготовление</span><span class="hero-title-line"><b>деталей</b> любой</span><span class="hero-title-line">сложности</span></h1>
         <p>Производим запасные части к машинам и механизмам по чертежам, эскизам и образцам заказчика.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="tel:<%= company.mobileHref %>">Позвонить для расчёта <i class="bi bi-telephone" aria-hidden="true"></i></a>
-          <a class="button button-ghost" href="/services/">Смотреть услуги</a>
+          <button class="button button-primary" type="button" data-request-open>Оставить заявку <i class="bi bi-send" aria-hidden="true"></i></button>
+          <a class="button button-ghost" href="tel:<%= company.mobileHref %>">Позвонить <i class="bi bi-telephone" aria-hidden="true"></i></a>
         </div>
         <div class="hero-contact"><span>Обсудить задачу:</span><a href="tel:<%= company.mobileHref %>"><%= company.mobile %> — <%= company.mobileName %></a></div>
       </div>
@@ -71,7 +71,7 @@
     <div class="container">
       <div class="section-heading centered reveal"><div><span class="eyebrow">Понятный процесс</span><h2>Как мы <span>работаем</span></h2></div><p>От первого файла до готовой детали — с согласованием ключевых параметров.</p></div>
       <ol class="process-grid">
-        <li class="reveal"><span class="process-icon"><i class="bi bi-telephone" aria-hidden="true"></i></span><span class="step">01</span><h3>Звонок</h3><p>Вы звоните и кратко описываете деталь, материал и количество.</p></li>
+        <li class="reveal"><span class="process-icon"><i class="bi bi-send" aria-hidden="true"></i></span><span class="step">01</span><h3>Заявка или звонок</h3><p>Опишите деталь в форме или позвоните напрямую.</p></li>
         <li class="reveal"><span class="process-icon"><i class="bi bi-calculator" aria-hidden="true"></i></span><span class="step">02</span><h3>Расчёт</h3><p>Уточняем материал, количество, допуски и срок.</p></li>
         <li class="reveal"><span class="process-icon"><i class="bi bi-gear-wide-connected" aria-hidden="true"></i></span><span class="step">03</span><h3>Производство</h3><p>Запускаем согласованный технологический маршрут.</p></li>
         <li class="reveal"><span class="process-icon"><i class="bi bi-shield-check" aria-hidden="true"></i></span><span class="step">04</span><h3>Контроль</h3><p>Проверяем критичные размеры и комплектность.</p></li>
@@ -85,8 +85,8 @@
     <div class="container cta-inner reveal">
       <span class="eyebrow light">Прямая связь с производством</span>
       <h2>Нужна деталь по чертежу или образцу?</h2>
-      <p>Позвоните Евгению и обсудите задачу напрямую. Форм обратной связи на сайте нет.</p>
-      <div><a class="button button-primary" href="tel:<%= company.mobileHref %>"><i class="bi bi-telephone" aria-hidden="true"></i> <%= company.mobile %></a></div>
+      <p>Оставьте заявку с описанием задачи или позвоните Евгению и обсудите детали напрямую.</p>
+      <div><button class="button button-primary" type="button" data-request-open><i class="bi bi-send" aria-hidden="true"></i> Оставить заявку</button><a class="button button-ghost" href="tel:<%= company.mobileHref %>"><i class="bi bi-telephone" aria-hidden="true"></i> Позвонить</a></div>
     </div>
   </section>
 

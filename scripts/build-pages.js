@@ -8,10 +8,11 @@ const projectRoot = path.resolve(__dirname, '..');
 const outputRoot = path.resolve(projectRoot, process.env.STATIC_OUTPUT_DIR || 'docs');
 const viewsRoot = path.join(projectRoot, 'views');
 const siteUrl = (process.env.STATIC_SITE_URL || 'https://razilkik-ops.github.io/detali').replace(/\/$/u, '');
+const formAction = process.env.FORM_ACTION || 'https://spetstehosnastka.by/api/submit.php';
 const configuredBasePath = process.env.STATIC_BASE_PATH ?? '/detali';
 const basePath = configuredBasePath === '/' ? '' : `/${configuredBasePath.replace(/^\/+|\/+$/gu, '')}`;
 const year = new Date().getFullYear();
-const lastModified = '2026-08-28';
+const lastModified = '2026-09-03';
 const safeJsonLd = (value) => JSON.stringify(value).replace(/</g, '\\u003c');
 
 const metaDefaults = {
@@ -130,6 +131,7 @@ async function renderPage(page) {
     company,
     services,
     siteUrl,
+    formAction,
     currentPath: page.currentPath,
     year,
     safeJsonLd,
@@ -175,6 +177,8 @@ async function build() {
   await fs.writeFile(path.join(outputRoot, 'robots.txt'), `User-agent: *\nAllow: ${basePath || '/'}/\nSitemap: ${siteUrl}/sitemap.xml\n`.replace('Allow: //', 'Allow: /'));
   await fs.writeFile(path.join(outputRoot, '.nojekyll'), '');
   if (process.env.STATIC_APACHE === '1') {
+    await fs.mkdir(path.join(outputRoot, 'api'), { recursive: true });
+    await fs.copyFile(path.join(projectRoot, 'hosting/api/submit.php'), path.join(outputRoot, 'api/submit.php'));
     const canonicalHostPattern = new URL(siteUrl).hostname.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
     const apacheConfig = `Options -Indexes
 DirectoryIndex index.html
@@ -193,6 +197,7 @@ ErrorDocument 404 /404.html
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; img-src 'self' data:; script-src 'self'; style-src 'self'; font-src 'self' data:; connect-src 'self' https://spetstehosnastka.by; form-action 'self' https://spetstehosnastka.by"
 </IfModule>
 
 <IfModule mod_expires.c>

@@ -30,7 +30,7 @@
   <link rel="preload" href="/detali/images/hero-gears.jpg" as="image" fetchpriority="high">
   <link rel="preload" href="/detali/fonts/manrope-cyrillic-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/detali/icons/bootstrap-icons.css">
-  <link rel="stylesheet" href="/detali/css/styles.css?v=7">
+  <link rel="stylesheet" href="/detali/css/styles.css?v=8">
 
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://razilkik-ops.github.io/detali/#organization","name":"ЧПУП «СпецТехОснастка»","alternateName":"СпецТехОснастка","url":"https://razilkik-ops.github.io/detali/","logo":{"@type":"ImageObject","url":"https://razilkik-ops.github.io/detali/images/favicon.svg"},"image":"https://razilkik-ops.github.io/detali/images/hero-gears.jpg","email":"spetstehosnastka@yandex.by","telephone":["+375447844193","+375296924336"],"taxID":"192327800","address":{"@type":"PostalAddress","postalCode":"220034","addressLocality":"Минск","streetAddress":"ул. Зм. Бядули, д. 13, корп. 4, пом. 214","addressCountry":"BY"},"areaServed":{"@type":"Country","name":"Беларусь"},"knowsAbout":["металлообработка","ЧПУ-обработка","шестерни","зубчатые передачи","пресс-формы"],"contactPoint":[{"@type":"ContactPoint","telephone":"+375447844193","contactType":"sales","name":"Евгений","availableLanguage":["ru"]},{"@type":"ContactPoint","telephone":"+375296924336","contactType":"sales","name":"Алексей","availableLanguage":["ru"]}]},{"@type":"WebSite","@id":"https://razilkik-ops.github.io/detali/#website","url":"https://razilkik-ops.github.io/detali/","name":"СпецТехОснастка","inLanguage":"ru-BY","publisher":{"@id":"https://razilkik-ops.github.io/detali/#organization"}},{"@type":"WebPage","@id":"https://razilkik-ops.github.io/detali/#webpage","url":"https://razilkik-ops.github.io/detali/","name":"Металлообработка и изготовление деталей в Минске | СпецТехОснастка","description":"ЧПУ-обработка, шестерни, зубчатые рейки, пресс-формы и электроэрозия. Изготовление деталей по чертежам и образцам в Минске.","inLanguage":"ru-BY","isPartOf":{"@id":"https://razilkik-ops.github.io/detali/#website"},"about":{"@id":"https://razilkik-ops.github.io/detali/#organization"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://razilkik-ops.github.io/detali/images/hero-gears.jpg"}}]}</script>
 </head>
@@ -76,8 +76,8 @@
         <h1><span class="hero-title-line hero-title-white">Изготовление</span><span class="hero-title-line"><b>деталей</b> любой</span><span class="hero-title-line">сложности</span></h1>
         <p>Производим запасные части к машинам и механизмам по чертежам, эскизам и образцам заказчика.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="tel:+375447844193">Позвонить для расчёта <i class="bi bi-telephone" aria-hidden="true"></i></a>
-          <a class="button button-ghost" href="/detali/services/">Смотреть услуги</a>
+          <button class="button button-primary" type="button" data-request-open>Оставить заявку <i class="bi bi-send" aria-hidden="true"></i></button>
+          <a class="button button-ghost" href="tel:+375447844193">Позвонить <i class="bi bi-telephone" aria-hidden="true"></i></a>
         </div>
         <div class="hero-contact"><span>Обсудить задачу:</span><a href="tel:+375447844193">+375 44 784-41-93 — Евгений</a></div>
       </div>
@@ -215,7 +215,7 @@
     <div class="container">
       <div class="section-heading centered reveal"><div><span class="eyebrow">Понятный процесс</span><h2>Как мы <span>работаем</span></h2></div><p>От первого файла до готовой детали — с согласованием ключевых параметров.</p></div>
       <ol class="process-grid">
-        <li class="reveal"><span class="process-icon"><i class="bi bi-telephone" aria-hidden="true"></i></span><span class="step">01</span><h3>Звонок</h3><p>Вы звоните и кратко описываете деталь, материал и количество.</p></li>
+        <li class="reveal"><span class="process-icon"><i class="bi bi-send" aria-hidden="true"></i></span><span class="step">01</span><h3>Заявка или звонок</h3><p>Опишите деталь в форме или позвоните напрямую.</p></li>
         <li class="reveal"><span class="process-icon"><i class="bi bi-calculator" aria-hidden="true"></i></span><span class="step">02</span><h3>Расчёт</h3><p>Уточняем материал, количество, допуски и срок.</p></li>
         <li class="reveal"><span class="process-icon"><i class="bi bi-gear-wide-connected" aria-hidden="true"></i></span><span class="step">03</span><h3>Производство</h3><p>Запускаем согласованный технологический маршрут.</p></li>
         <li class="reveal"><span class="process-icon"><i class="bi bi-shield-check" aria-hidden="true"></i></span><span class="step">04</span><h3>Контроль</h3><p>Проверяем критичные размеры и комплектность.</p></li>
@@ -229,8 +229,8 @@
     <div class="container cta-inner reveal">
       <span class="eyebrow light">Прямая связь с производством</span>
       <h2>Нужна деталь по чертежу или образцу?</h2>
-      <p>Позвоните Евгению и обсудите задачу напрямую. Форм обратной связи на сайте нет.</p>
-      <div><a class="button button-primary" href="tel:+375447844193"><i class="bi bi-telephone" aria-hidden="true"></i> +375 44 784-41-93</a></div>
+      <p>Оставьте заявку с описанием задачи или позвоните Евгению и обсудите детали напрямую.</p>
+      <div><button class="button button-primary" type="button" data-request-open><i class="bi bi-send" aria-hidden="true"></i> Оставить заявку</button><a class="button button-ghost" href="tel:+375447844193"><i class="bi bi-telephone" aria-hidden="true"></i> Позвонить</a></div>
     </div>
   </section>
 
@@ -269,9 +269,10 @@
       </ul>
     </div>
     <div class="footer-request">
-      <h2>Обсудить задачу</h2>
-      <p>Позвоните Евгению напрямую. Заявки через сайт не принимаются.</p>
-      <a class="button button-primary" href="tel:+375447844193"><i class="bi bi-telephone" aria-hidden="true"></i> +375 44 784-41-93</a>
+      <h2>Оставить заявку</h2>
+      <p>Опишите задачу в форме или позвоните Евгению напрямую.</p>
+      <button class="button button-primary" type="button" data-request-open><i class="bi bi-send" aria-hidden="true"></i> Оставить заявку</button>
+      <a class="footer-phone-link" href="tel:+375447844193"><i class="bi bi-telephone" aria-hidden="true"></i> +375 44 784-41-93</a>
     </div>
   </div>
   <div class="container footer-legal">
@@ -279,6 +280,34 @@
     <a href="/detali/privacy/">Обработка персональных данных</a>
   </div>
 </footer>
-<script src="/detali/js/app.js?v=3" defer></script>
+<dialog class="request-dialog" data-request-dialog aria-labelledby="request-title">
+  <div class="request-dialog-panel">
+    <button class="request-dialog-close" type="button" aria-label="Закрыть форму" data-request-close><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+    <div class="request-dialog-heading">
+      <span class="eyebrow">Заявка на изготовление</span>
+      <h2 id="request-title">Расскажите о вашей задаче</h2>
+      <p>Оставьте контакты и краткое описание. Евгений свяжется с вами для уточнения параметров и расчёта.</p>
+    </div>
+    <form class="request-form" action="https://spetstehosnastka.by/api/submit.php" method="post" data-request-form>
+      <div class="request-form-grid">
+        <label class="form-field"><span>Ваше имя <b aria-hidden="true">*</b></span><input type="text" name="name" autocomplete="name" minlength="2" maxlength="80" required></label>
+        <label class="form-field"><span>Телефон <b aria-hidden="true">*</b></span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" maxlength="32" placeholder="+375 29 000-00-00" required></label>
+        <label class="form-field"><span>E-mail</span><input type="email" name="email" autocomplete="email" maxlength="120" placeholder="Для ответа и документов"></label>
+        <label class="form-field"><span>Услуга</span><select name="service" data-request-service><option value="">Выберите направление</option><option value="ЧПУ-обработка">ЧПУ-обработка</option><option value="Шестерни">Шестерни</option><option value="Червячные передачи">Червячные передачи</option><option value="Пресс-формы и штампы">Пресс-формы и штампы</option><option value="Звёздочки и валы">Звёздочки и валы</option><option value="Зубчатые рейки">Зубчатые рейки</option><option value="Электроэрозия">Электроэрозия</option><option value="Шлифовка и полировка">Шлифовка и полировка</option><option value="Другое">Другое</option></select></label>
+        <label class="form-field form-field-full"><span>Описание задачи <b aria-hidden="true">*</b></span><textarea name="message" rows="5" minlength="10" maxlength="2000" placeholder="Что нужно изготовить, материал, количество и желаемый срок" required></textarea></label>
+        <label class="form-honeypot" aria-hidden="true">Ваш сайт<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        <input type="hidden" name="source" value="">
+      </div>
+      <label class="form-consent"><input type="checkbox" name="consent" value="1" required><span>Согласен на обработку указанных данных для ответа на заявку согласно <a href="/detali/privacy/" target="_blank" rel="noopener">политике обработки данных</a>.</span></label>
+      <div class="request-form-actions">
+        <button class="button button-primary" type="submit" data-request-submit><i class="bi bi-send" aria-hidden="true"></i> Отправить заявку</button>
+        <a class="button button-secondary" href="tel:+375447844193"><i class="bi bi-telephone" aria-hidden="true"></i> Позвонить</a>
+      </div>
+      <p class="form-status" role="status" aria-live="polite" data-request-status></p>
+    </form>
+  </div>
+</dialog>
+
+<script src="/detali/js/app.js?v=4" defer></script>
 </body>
 </html>

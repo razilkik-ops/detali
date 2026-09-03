@@ -21,9 +21,10 @@
       </ul>
     </div>
     <div class="footer-request">
-      <h2>Обсудить задачу</h2>
-      <p>Позвоните Евгению напрямую. Заявки через сайт не принимаются.</p>
-      <a class="button button-primary" href="tel:<%= company.mobileHref %>"><i class="bi bi-telephone" aria-hidden="true"></i> <%= company.mobile %></a>
+      <h2>Оставить заявку</h2>
+      <p>Опишите задачу в форме или позвоните Евгению напрямую.</p>
+      <button class="button button-primary" type="button" data-request-open><i class="bi bi-send" aria-hidden="true"></i> Оставить заявку</button>
+      <a class="footer-phone-link" href="tel:<%= company.mobileHref %>"><i class="bi bi-telephone" aria-hidden="true"></i> <%= company.mobile %></a>
     </div>
   </div>
   <div class="container footer-legal">
@@ -31,6 +32,7 @@
     <a href="/privacy/">Обработка персональных данных</a>
   </div>
 </footer>
-<script src="/js/app.js?v=3" defer></script>
+<%- include('request-dialog') %>
+<script src="/js/app.js?v=4" defer></script>
 </body>
 </html>

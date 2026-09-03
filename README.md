@@ -44,9 +44,21 @@ node scripts/build-pages.js
 - Контакты и реквизиты.
 - Политика обработки данных, 404, `robots.txt`, `sitemap.xml`.
 
-## Связь
+## Заявки в Telegram
 
-Сайт не содержит форм обратной связи и не принимает заявки. Все основные CTA ведут на прямой телефон Евгения.
+На всех основных страницах доступна форма заявки, при этом кнопки прямого звонка сохранены. Браузер отправляет данные в `hosting/api/submit.php`, а PHP-обработчик валидирует поля, ограничивает частоту запросов и передаёт заявку через Telegram Bot API.
+
+Секреты запрещено размещать в `public/`, `docs/` или Git. На HostFly обработчик сначала читает переменные окружения `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID`. Если окружение недоступно, он читает `/home/spetsteh/telegram.env` — обычный текстовый файл за пределами `public_html`. Образец находится в `hosting/telegram.env.example`; реальному файлу задайте права `600`.
+
+Для production-сборки PHP-обработчик автоматически копируется в `api/`:
+
+```bash
+STATIC_SITE_URL=https://spetstehosnastka.by \
+STATIC_BASE_PATH=/ \
+STATIC_OUTPUT_DIR=dist \
+STATIC_APACHE=1 \
+node scripts/build-pages.js
+```
 
 ## Проверки
 

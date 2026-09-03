@@ -8,7 +8,8 @@ const company = require('./data/company');
 const app = express();
 const port = Number(process.env.PORT) || 4173;
 const siteUrl = (process.env.SITE_URL || `http://localhost:${port}`).replace(/\/$/, '');
-const lastModified = '2026-08-28';
+const formAction = process.env.FORM_ACTION || 'https://spetstehosnastka.by/api/submit.php';
+const lastModified = '2026-09-03';
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -23,7 +24,8 @@ app.use(helmet({
       "script-src": ["'self'"],
       "style-src": ["'self'"],
       "font-src": ["'self'", 'data:'],
-      "form-action": ["'none'"],
+      "connect-src": ["'self'", 'https://spetstehosnastka.by'],
+      "form-action": ["'self'", 'https://spetstehosnastka.by'],
       "upgrade-insecure-requests": null
     }
   },
@@ -37,6 +39,7 @@ app.use((req, res, next) => {
   res.locals.company = company;
   res.locals.services = services;
   res.locals.siteUrl = siteUrl;
+  res.locals.formAction = formAction;
   res.locals.currentPath = req.path.replace(/\/+$/, '') || '/';
   res.locals.year = new Date().getFullYear();
   res.locals.safeJsonLd = (value) => JSON.stringify(value).replace(/</g, '\\u003c');

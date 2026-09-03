@@ -3,6 +3,9 @@ node_modules/
 .env
 .env.*
 !.env.example
+telegram-config.php
+telegram.env
+.env.telegram
 .npmrc
 *.pem
 *.key
@@ -13,6 +16,8 @@ node_modules/
 *.log
 npm-debug.log*
 coverage/
+dist/
+hostfly-upload/*.zip
 screenshots/
 screenshots-*.png
 design-qa*.png
