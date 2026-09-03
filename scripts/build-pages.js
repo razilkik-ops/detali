@@ -179,6 +179,7 @@ async function build() {
   if (process.env.STATIC_APACHE === '1') {
     await fs.mkdir(path.join(outputRoot, 'api'), { recursive: true });
     await fs.copyFile(path.join(projectRoot, 'hosting/api/submit.php'), path.join(outputRoot, 'api/submit.php'));
+    await fs.copyFile(path.join(projectRoot, 'hosting/.user.ini'), path.join(outputRoot, '.user.ini'));
     const canonicalHostPattern = new URL(siteUrl).hostname.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
     const apacheConfig = `Options -Indexes
 DirectoryIndex index.html

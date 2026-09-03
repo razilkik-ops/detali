@@ -6,13 +6,27 @@
       <h2 id="request-title">Расскажите о вашей задаче</h2>
       <p>Оставьте контакты и краткое описание. Евгений свяжется с вами для уточнения параметров и расчёта.</p>
     </div>
-    <form class="request-form" action="<%= formAction %>" method="post" data-request-form>
+    <form class="request-form" action="<%= formAction %>" method="post" enctype="multipart/form-data" data-request-form>
       <div class="request-form-grid">
         <label class="form-field"><span>Ваше имя <b aria-hidden="true">*</b></span><input type="text" name="name" autocomplete="name" minlength="2" maxlength="80" required></label>
         <label class="form-field"><span>Телефон <b aria-hidden="true">*</b></span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" maxlength="32" placeholder="+375 29 000-00-00" required></label>
         <label class="form-field"><span>E-mail</span><input type="email" name="email" autocomplete="email" maxlength="120" placeholder="Для ответа и документов"></label>
         <label class="form-field"><span>Услуга</span><select name="service" data-request-service><option value="">Выберите направление</option><% services.forEach((item) => { %><option value="<%= item.navTitle %>"><%= item.navTitle %></option><% }) %><option value="Другое">Другое</option></select></label>
         <label class="form-field form-field-full"><span>Описание задачи <b aria-hidden="true">*</b></span><textarea name="message" rows="5" minlength="10" maxlength="2000" placeholder="Что нужно изготовить, материал, количество и желаемый срок" required></textarea></label>
+        <div class="form-field form-field-full attachment-field" data-attachment-field>
+          <span>Чертёж или фотография</span>
+          <label class="attachment-picker" data-attachment-picker>
+            <input class="attachment-input" type="file" name="attachment" accept=".jpg,.jpeg,.png,.webp,.pdf,image/jpeg,image/png,image/webp,application/pdf" data-attachment-input>
+            <span class="attachment-picker-icon"><i class="bi bi-paperclip" aria-hidden="true"></i></span>
+            <span class="attachment-picker-copy"><strong>Прикрепить файл</strong><small>JPG, PNG, WebP или PDF до 8 МБ</small></span>
+          </label>
+          <div class="attachment-preview" data-attachment-preview hidden>
+            <div class="attachment-thumbnail" data-attachment-thumbnail><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i></div>
+            <div class="attachment-meta"><strong data-attachment-name></strong><small data-attachment-size></small></div>
+            <button class="attachment-remove" type="button" aria-label="Удалить прикреплённый файл" data-attachment-remove><i class="bi bi-trash3" aria-hidden="true"></i></button>
+          </div>
+          <p class="attachment-error" role="alert" data-attachment-error></p>
+        </div>
         <label class="form-honeypot" aria-hidden="true">Ваш сайт<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
         <input type="hidden" name="source" value="">
       </div>

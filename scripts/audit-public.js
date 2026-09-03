@@ -39,11 +39,11 @@ async function audit() {
       const relative = path.relative(projectRoot, file);
       const basename = path.basename(file);
       const extension = path.extname(file).toLowerCase();
-      if (!['.nojekyll', '.htaccess'].includes(basename) && (!allowedExtensions.has(extension) || forbiddenNames.test(basename))) {
+      if (!['.nojekyll', '.htaccess', '.user.ini'].includes(basename) && (!allowedExtensions.has(extension) || forbiddenNames.test(basename))) {
         errors.push(`${relative}: недопустимый публичный тип файла`);
         continue;
       }
-      if (basename !== '.htaccess' && !['.html', '.css', '.js', '.php', '.xml', '.txt', '.svg', '.webmanifest'].includes(extension)) continue;
+      if (!['.htaccess', '.user.ini'].includes(basename) && !['.html', '.css', '.js', '.php', '.xml', '.txt', '.svg', '.webmanifest'].includes(extension)) continue;
       const content = await fs.readFile(file, 'utf8');
       if (secretPatterns.some((pattern) => pattern.test(content))) errors.push(`${relative}: обнаружен фрагмент, похожий на секрет`);
       if (extension === '.svg' && /<script\b|\bon\w+\s*=/iu.test(content)) errors.push(`${relative}: активное содержимое в SVG`);

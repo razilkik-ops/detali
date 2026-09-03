@@ -29,6 +29,9 @@ test('на страницах есть защищённая форма заяв�
     const html = await response.text();
     assert.equal(response.status, 200, pagePath);
     assert.match(html, /<form\b[^>]*data-request-form/iu, pagePath);
+    assert.match(html, /enctype="multipart\/form-data"/iu, pagePath);
+    assert.match(html, /type="file"[^>]*name="attachment"/iu, pagePath);
+    assert.match(html, /data-attachment-preview/iu, pagePath);
     assert.match(html, /action="https:\/\/spetstehosnastka\.by\/api\/submit\.php"/iu, pagePath);
     assert.match(html, /data-request-open/iu, pagePath);
     assert.match(html, new RegExp(`href="tel:${company.mobileHref.replace('+', '\\+')}"`, 'u'), pagePath);
@@ -41,6 +44,11 @@ test('PHP-обработчик не содержит секретов и заг�
   assert.match(handler, /getenv\('TELEGRAM_CHAT_ID'\)/u);
   assert.match(handler, /dirname\(__DIR__, 2\).*telegram\.env/u);
   assert.match(handler, /parseEnvironmentFile/u);
+  assert.match(handler, /MAX_ATTACHMENT_BYTES\s*=\s*8\s*\*\s*1024\s*\*\s*1024/u);
+  assert.match(handler, /is_uploaded_file/u);
+  assert.match(handler, /finfo_file/u);
+  assert.match(handler, /new CURLFile/u);
+  assert.match(handler, /sendTelegramAttachment/u);
   assert.doesNotMatch(handler, /\b\d{6,}:[A-Za-z0-9_-]{30,}\b/u);
   assert.doesNotMatch(handler, /bot_token'\s*=>\s*'[^']{30,}'/u);
 });

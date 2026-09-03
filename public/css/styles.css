@@ -298,6 +298,24 @@ p{color:var(--muted)}
 .form-field textarea{min-height:122px;padding:13px 15px;resize:vertical}
 .form-field input:hover,.form-field textarea:hover,.form-field select:hover{border-color:#9db6c6}
 .form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,143,224,.12)}
+.attachment-field{gap:8px}
+.attachment-picker{position:relative;display:flex;align-items:center;gap:15px;min-height:76px;padding:14px 17px;border:1px dashed #9eb8c8;border-radius:4px;background:#f7fbfd;cursor:pointer;transition:border-color .2s,background-color .2s,box-shadow .2s}
+.attachment-picker:hover,.attachment-picker:focus-within,.attachment-picker.is-dragging{border-color:var(--blue);background:var(--blue-pale);box-shadow:0 0 0 3px rgba(22,143,224,.08)}
+.attachment-input{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;border:0!important;opacity:0!important;overflow:hidden!important}
+.attachment-picker-icon{display:grid;place-items:center;flex:0 0 44px;height:44px;border-radius:50%;background:var(--white);color:var(--blue);font-size:24px;box-shadow:0 4px 16px rgba(12,39,56,.09)}
+.attachment-picker-copy{display:flex;flex-direction:column;gap:3px;min-width:0}
+.attachment-picker-copy strong{color:var(--ink);font-size:13px}
+.attachment-picker-copy small{color:var(--muted);font-size:11px}
+.attachment-preview{display:flex;align-items:center;gap:14px;padding:11px;border:1px solid var(--line);border-radius:4px;background:var(--paper)}
+.attachment-preview[hidden]{display:none}
+.attachment-thumbnail{display:grid;place-items:center;flex:0 0 70px;width:70px;height:70px;overflow:hidden;border-radius:3px;background:var(--ink);color:var(--blue-light);font-size:30px}
+.attachment-thumbnail img{width:100%;height:100%;object-fit:cover}
+.attachment-meta{display:flex;flex:1;flex-direction:column;gap:4px;min-width:0}
+.attachment-meta strong{overflow:hidden;color:var(--ink);font-size:13px;text-overflow:ellipsis;white-space:nowrap}
+.attachment-meta small{color:var(--muted);font-size:11px}
+.attachment-remove{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:var(--white);color:var(--danger);font-size:17px;transition:border-color .2s,background-color .2s}
+.attachment-remove:hover{border-color:var(--danger);background:#fff4f3}
+.attachment-error{min-height:17px;margin:0;color:var(--danger);font-size:11px;font-weight:700}
 .form-honeypot{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important}
 .form-consent{display:flex;align-items:flex-start;gap:11px;margin-top:18px;color:var(--muted);font-size:12px;line-height:1.5}
 .form-consent input{flex:0 0 auto;width:17px;height:17px;margin:1px 0 0;accent-color:var(--blue)}
@@ -366,6 +384,6 @@ p{color:var(--muted)}
   .spec-card{padding:29px 22px}.spec-card dl div{grid-template-columns:1fr;gap:4px}.contact-call-card{padding:28px 20px}.contact-call-card h2{font-size:30px}
   .context-card{padding:29px 22px}
   .contact-page-grid{gap:35px}.requisites{padding:22px}.requisites dl div{grid-template-columns:100px 1fr}
-  .request-dialog{width:calc(100% - 18px);max-height:calc(100dvh - 18px)}.request-dialog-panel{max-height:calc(100dvh - 18px);padding:34px 20px 26px}.request-dialog-close{top:11px;right:11px}.request-dialog-heading{padding-right:30px}.request-form-grid{grid-template-columns:1fr}.form-field-full{grid-column:auto}.request-form-actions{flex-direction:column}.request-form-actions .button{width:100%}
+  .request-dialog{width:calc(100% - 18px);max-height:calc(100dvh - 18px)}.request-dialog-panel{max-height:calc(100dvh - 18px);padding:34px 20px 26px}.request-dialog-close{top:11px;right:11px}.request-dialog-heading{padding-right:30px}.request-form-grid{grid-template-columns:1fr}.form-field-full{grid-column:auto}.attachment-picker{min-height:70px;padding:12px}.attachment-picker-icon{flex-basis:40px;height:40px}.attachment-thumbnail{flex-basis:60px;width:60px;height:60px}.attachment-meta strong{white-space:normal;overflow-wrap:anywhere}.request-form-actions{flex-direction:column}.request-form-actions .button{width:100%}
   .not-found>div>div{flex-direction:column}.error-code{font-size:94px}
 }

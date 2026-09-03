@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-const MAX_REQUEST_BYTES = 65536;
+const MAX_REQUEST_BYTES = 12 * 1024 * 1024;
+const MAX_ATTACHMENT_BYTES = 8 * 1024 * 1024;
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW = 900;
 
@@ -44,6 +45,9 @@ if ($contentLength > MAX_REQUEST_BYTES) {
 }
 
 $contentType = strtolower((string) ($_SERVER['CONTENT_TYPE'] ?? ''));
+if (strpos($contentType, 'multipart/form-data') !== false && $contentLength > 0 && $_POST === [] && $_FILES === []) {
+    respond(413, ['ok' => false, 'message' => 'Файл не был принят сервером. Максимальный размер вложения — 8 МБ.']);
+}
 if (strpos($contentType, 'application/json') !== false) {
     $rawBody = file_get_contents('php://input', false, null, 0, MAX_REQUEST_BYTES + 1);
     if ($rawBody === false || strlen($rawBody) > MAX_REQUEST_BYTES) {
@@ -60,6 +64,8 @@ if (strpos($contentType, 'application/json') !== false) {
 if (cleanSingleLine($payload['website'] ?? '', 200) !== '') {
     respond(200, ['ok' => true, 'message' => 'Спасибо! Заявка отправлена.']);
 }
+
+$attachment = validateAttachment($_FILES['attachment'] ?? null);
 
 $name = cleanSingleLine($payload['name'] ?? '', 80);
 $phone = cleanSingleLine($payload['phone'] ?? '', 32);
@@ -110,6 +116,7 @@ $telegramMessage = implode("\n", [
     '<b>E-mail:</b> ' . ($email !== '' ? escapeTelegram($email) : 'не указан'),
     '<b>Услуга:</b> ' . ($service !== '' ? escapeTelegram($service) : 'не выбрана'),
     '<b>Задача:</b> ' . escapeTelegram($message),
+    '<b>Чертёж:</b> ' . ($attachment !== null ? 'прикреплён' : 'не приложен'),
     '<b>Страница:</b> ' . ($source !== '' ? escapeTelegram($source) : 'не указана'),
 ]);
 
@@ -118,7 +125,26 @@ if (!sendTelegramMessage($config['bot_token'], $config['chat_id'], $telegramMess
     respond(502, ['ok' => false, 'message' => 'Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.']);
 }
 
-respond(201, ['ok' => true, 'message' => 'Спасибо! Заявка отправлена. Мы свяжемся с вами в рабочее время.']);
+$attachmentUploaded = true;
+if ($attachment !== null) {
+    $attachmentUploaded = sendTelegramAttachment(
+        $config['bot_token'],
+        $config['chat_id'],
+        $attachment,
+        'Чертёж к заявке — ' . $name
+    );
+    if (!$attachmentUploaded) {
+        error_log('Spetstehosnastka form: Telegram attachment upload failed.');
+    }
+}
+
+respond(201, [
+    'ok' => true,
+    'attachmentUploaded' => $attachmentUploaded,
+    'message' => $attachmentUploaded
+        ? 'Спасибо! Заявка отправлена. Мы свяжемся с вами в рабочее время.'
+        : 'Заявка отправлена, но файл не прикрепился. Мы свяжемся с вами для получения чертежа.',
+]);
 
 function respond(int $status, array $body): void
 {
@@ -175,6 +201,62 @@ function validatedSource($value): string
     }
     $host = strtolower((string) parse_url($source, PHP_URL_HOST));
     return in_array($host, ['spetstehosnastka.by', 'www.spetstehosnastka.by', 'razilkik-ops.github.io'], true) ? $source : '';
+}
+
+function validateAttachment($file): ?array
+{
+    if ($file === null || !is_array($file)) {
+        return null;
+    }
+    foreach (['error', 'tmp_name', 'size'] as $field) {
+        if (isset($file[$field]) && is_array($file[$field])) {
+            respond(400, ['ok' => false, 'message' => 'Можно прикрепить только один файл.']);
+        }
+    }
+    $error = isset($file['error']) ? (int) $file['error'] : UPLOAD_ERR_NO_FILE;
+    if ($error === UPLOAD_ERR_NO_FILE) {
+        return null;
+    }
+    if (in_array($error, [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) {
+        respond(413, ['ok' => false, 'message' => 'Файл больше допустимого размера 8 МБ.']);
+    }
+    if ($error !== UPLOAD_ERR_OK) {
+        respond(400, ['ok' => false, 'message' => 'Не удалось загрузить файл. Выберите его повторно.']);
+    }
+    $temporaryPath = isset($file['tmp_name']) && is_string($file['tmp_name']) ? $file['tmp_name'] : '';
+    $size = isset($file['size']) ? (int) $file['size'] : 0;
+    if ($temporaryPath === '' || !is_uploaded_file($temporaryPath)) {
+        respond(400, ['ok' => false, 'message' => 'Не удалось проверить загруженный файл.']);
+    }
+    if ($size <= 0) {
+        respond(400, ['ok' => false, 'message' => 'Прикреплённый файл пустой.']);
+    }
+    if ($size > MAX_ATTACHMENT_BYTES) {
+        respond(413, ['ok' => false, 'message' => 'Файл больше допустимого размера 8 МБ.']);
+    }
+    if (!function_exists('finfo_open')) {
+        error_log('Spetstehosnastka form: PHP Fileinfo extension is unavailable.');
+        respond(503, ['ok' => false, 'message' => 'Проверка файла временно недоступна. Отправьте заявку без вложения или позвоните нам.']);
+    }
+    $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimeType = $fileInfo !== false ? finfo_file($fileInfo, $temporaryPath) : false;
+    if ($fileInfo !== false) {
+        finfo_close($fileInfo);
+    }
+    $allowedTypes = [
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png',
+        'image/webp' => 'webp',
+        'application/pdf' => 'pdf',
+    ];
+    if (!is_string($mimeType) || !isset($allowedTypes[$mimeType])) {
+        respond(415, ['ok' => false, 'message' => 'Разрешены только файлы JPG, PNG, WebP и PDF.']);
+    }
+    return [
+        'path' => $temporaryPath,
+        'mime' => $mimeType,
+        'name' => 'chertezh-' . gmdate('Ymd-His') . '.' . $allowedTypes[$mimeType],
+    ];
 }
 
 function consumeRateLimit(string $remoteAddress): bool
@@ -280,6 +362,42 @@ function sendTelegramMessage(string $botToken, string $chatId, string $message):
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CONNECTTIMEOUT => 5,
         CURLOPT_TIMEOUT => 12,
+        CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_SSL_VERIFYHOST => 2,
+    ]);
+    $response = curl_exec($handle);
+    $status = (int) curl_getinfo($handle, CURLINFO_HTTP_CODE);
+    curl_close($handle);
+    if (!is_string($response) || $status !== 200) {
+        return false;
+    }
+    $decoded = json_decode($response, true);
+    return is_array($decoded) && ($decoded['ok'] ?? false) === true;
+}
+
+function sendTelegramAttachment(string $botToken, string $chatId, array $attachment, string $caption): bool
+{
+    if (!function_exists('curl_init') || !class_exists('CURLFile')) {
+        return false;
+    }
+    $isPhoto = in_array($attachment['mime'], ['image/jpeg', 'image/png'], true);
+    $method = $isPhoto ? 'sendPhoto' : 'sendDocument';
+    $fileField = $isPhoto ? 'photo' : 'document';
+    $handle = curl_init('https://api.telegram.org/bot' . $botToken . '/' . $method);
+    if ($handle === false) {
+        return false;
+    }
+    $requestBody = [
+        'chat_id' => $chatId,
+        'caption' => truncateText($caption, 900),
+        $fileField => new CURLFile($attachment['path'], $attachment['mime'], $attachment['name']),
+    ];
+    curl_setopt_array($handle, [
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => $requestBody,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 5,
+        CURLOPT_TIMEOUT => 25,
         CURLOPT_SSL_VERIFYPEER => true,
         CURLOPT_SSL_VERIFYHOST => 2,
     ]);
