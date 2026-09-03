@@ -1,3 +1,5 @@
+НАСТРОЙКА TELEGRAM
+
 1. Откройте cPanel -> File Manager.
 2. Перейдите в /home/spetsteh — это домашняя папка уровнем выше public_html.
 3. Загрузите сюда файл telegram.env. НЕ загружайте его в public_html.
@@ -7,3 +9,12 @@
 7. Сохраните файл и задайте ему права 600 через Permissions.
 
 Итоговый путь должен быть: /home/spetsteh/telegram.env
+
+ЗАГРУЗКА САЙТА
+
+1. Перейдите в /home/spetsteh/public_html.
+2. Загрузите public_html.zip.
+3. Выберите архив и нажмите Extract. Извлекайте прямо в /home/spetsteh/public_html.
+4. После распаковки удалите с сервера только загруженный архив public_html.zip.
+
+Архив специально не содержит .htaccess и не перезапишет настройки PHP в cPanel.
