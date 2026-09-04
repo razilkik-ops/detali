@@ -27,10 +27,18 @@ test('динамические страницы и SEO-файлы отдаютс
     const html = await response.text();
     assert.equal(response.status, 200, pagePath);
     assert.match(html, /<title>[^<]+<\/title>/u, pagePath);
+    assert.match(html, /<link rel="icon" href="\/favicon\.ico" sizes="any">/u, pagePath);
+    assert.match(html, /<link rel="apple-touch-icon" href="\/apple-touch-icon\.png" sizes="180x180">/u, pagePath);
+    assert.match(html, /<link rel="manifest" href="\/site\.webmanifest">/u, pagePath);
     assert.equal((html.match(/<h1(?:\s|>)/gu) || []).length, 1, pagePath);
     const contentSecurityPolicy = response.headers.get('content-security-policy') || '';
     assert.match(contentSecurityPolicy, /default-src 'self'/u, pagePath);
     assert.match(contentSecurityPolicy, /form-action 'self' https:\/\/spetstehosnastka\.by/u, pagePath);
+  }
+
+  for (const assetPath of ['/favicon.ico', '/apple-touch-icon.png', '/images/favicon-16x16.png', '/images/favicon-32x32.png', '/images/android-chrome-192x192.png', '/images/android-chrome-512x512.png', '/site.webmanifest', '/browserconfig.xml']) {
+    const asset = await fetch(`${origin}${assetPath}`);
+    assert.equal(asset.status, 200, assetPath);
   }
 
   const robots = await (await fetch(`${origin}/robots.txt`)).text();

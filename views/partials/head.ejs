@@ -26,7 +26,14 @@
   <meta name="twitter:image" content="<%= meta.image %>">
   <meta name="twitter:image:alt" content="<%= meta.imageAlt %>">
   <meta name="theme-color" content="#07131d">
-  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <meta name="msapplication-TileColor" content="#07131d">
+  <meta name="msapplication-config" content="/browserconfig.xml">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/images/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/images/favicon-48x48.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
   <% if (meta.preloadImage) { %><link rel="preload" href="<%= meta.preloadImage %>" as="image" fetchpriority="high"><% } %>
   <link rel="preload" href="/fonts/manrope-cyrillic-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/icons/bootstrap-icons.css">
@@ -40,7 +47,7 @@
          name: company.legalName,
          alternateName: company.name,
          url: siteUrl + '/',
-         logo: { '@type': 'ImageObject', url: siteUrl + '/images/favicon.svg' },
+         logo: { '@type': 'ImageObject', url: siteUrl + '/images/android-chrome-512x512.png', width: 512, height: 512 },
          image: siteUrl + '/images/hero-gears.jpg',
          email: company.email,
          telephone: [company.mobileHref, company.phoneHref],
