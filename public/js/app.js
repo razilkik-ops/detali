@@ -36,7 +36,7 @@
   const attachmentSize = requestDialog?.querySelector('[data-attachment-size]');
   const attachmentRemove = requestDialog?.querySelector('[data-attachment-remove]');
   const attachmentError = requestDialog?.querySelector('[data-attachment-error]');
-  const maxAttachmentBytes = 8 * 1024 * 1024;
+  const maxAttachmentBytes = 15 * 1024 * 1024;
   const allowedAttachmentTypes = new Set(['image/jpeg', 'image/png', 'image/webp', 'application/pdf']);
   const allowedAttachmentExtensions = new Set(['jpg', 'jpeg', 'png', 'webp', 'pdf']);
   let attachmentObjectUrl = '';
@@ -71,7 +71,7 @@
       return 'Можно прикрепить только JPG, PNG, WebP или PDF.';
     }
     if (file.size <= 0) return 'Выбранный файл пустой.';
-    if (file.size > maxAttachmentBytes) return 'Файл больше 8 МБ. Выберите файл меньшего размера.';
+    if (file.size > maxAttachmentBytes) return 'Файл больше 15 МБ. Выберите файл меньшего размера.';
     return '';
   };
 

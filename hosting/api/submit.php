@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-const MAX_REQUEST_BYTES = 12 * 1024 * 1024;
-const MAX_ATTACHMENT_BYTES = 8 * 1024 * 1024;
+const MAX_REQUEST_BYTES = 18 * 1024 * 1024;
+const MAX_ATTACHMENT_BYTES = 15 * 1024 * 1024;
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW = 900;
 
@@ -46,7 +46,7 @@ if ($contentLength > MAX_REQUEST_BYTES) {
 
 $contentType = strtolower((string) ($_SERVER['CONTENT_TYPE'] ?? ''));
 if (strpos($contentType, 'multipart/form-data') !== false && $contentLength > 0 && $_POST === [] && $_FILES === []) {
-    respond(413, ['ok' => false, 'message' => 'Файл не был принят сервером. Максимальный размер вложения — 8 МБ.']);
+    respond(413, ['ok' => false, 'message' => 'Файл не был принят сервером. Максимальный размер вложения — 15 МБ.']);
 }
 if (strpos($contentType, 'application/json') !== false) {
     $rawBody = file_get_contents('php://input', false, null, 0, MAX_REQUEST_BYTES + 1);
@@ -218,7 +218,7 @@ function validateAttachment($file): ?array
         return null;
     }
     if (in_array($error, [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) {
-        respond(413, ['ok' => false, 'message' => 'Файл больше допустимого размера 8 МБ.']);
+        respond(413, ['ok' => false, 'message' => 'Файл больше допустимого размера 15 МБ.']);
     }
     if ($error !== UPLOAD_ERR_OK) {
         respond(400, ['ok' => false, 'message' => 'Не удалось загрузить файл. Выберите его повторно.']);
@@ -232,7 +232,7 @@ function validateAttachment($file): ?array
         respond(400, ['ok' => false, 'message' => 'Прикреплённый файл пустой.']);
     }
     if ($size > MAX_ATTACHMENT_BYTES) {
-        respond(413, ['ok' => false, 'message' => 'Файл больше допустимого размера 8 МБ.']);
+        respond(413, ['ok' => false, 'message' => 'Файл больше допустимого размера 15 МБ.']);
     }
     if (!function_exists('finfo_open')) {
         error_log('Spetstehosnastka form: PHP Fileinfo extension is unavailable.');
@@ -380,9 +380,18 @@ function sendTelegramAttachment(string $botToken, string $chatId, array $attachm
     if (!function_exists('curl_init') || !class_exists('CURLFile')) {
         return false;
     }
-    $isPhoto = in_array($attachment['mime'], ['image/jpeg', 'image/png'], true);
-    $method = $isPhoto ? 'sendPhoto' : 'sendDocument';
-    $fileField = $isPhoto ? 'photo' : 'document';
+    $fileSize = filesize($attachment['path']);
+    $canSendAsPhoto = in_array($attachment['mime'], ['image/jpeg', 'image/png'], true)
+        && is_int($fileSize)
+        && $fileSize <= 10 * 1024 * 1024;
+    if ($canSendAsPhoto && performTelegramFileUpload($botToken, $chatId, $attachment, $caption, 'sendPhoto', 'photo')) {
+        return true;
+    }
+    return performTelegramFileUpload($botToken, $chatId, $attachment, $caption, 'sendDocument', 'document');
+}
+
+function performTelegramFileUpload(string $botToken, string $chatId, array $attachment, string $caption, string $method, string $fileField): bool
+{
     $handle = curl_init('https://api.telegram.org/bot' . $botToken . '/' . $method);
     if ($handle === false) {
         return false;

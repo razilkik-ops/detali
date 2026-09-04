@@ -44,7 +44,7 @@ test('PHP-обработчик не содержит секретов и заг�
   assert.match(handler, /getenv\('TELEGRAM_CHAT_ID'\)/u);
   assert.match(handler, /dirname\(__DIR__, 2\).*telegram\.env/u);
   assert.match(handler, /parseEnvironmentFile/u);
-  assert.match(handler, /MAX_ATTACHMENT_BYTES\s*=\s*8\s*\*\s*1024\s*\*\s*1024/u);
+  assert.match(handler, /MAX_ATTACHMENT_BYTES\s*=\s*15\s*\*\s*1024\s*\*\s*1024/u);
   assert.match(handler, /is_uploaded_file/u);
   assert.match(handler, /finfo_file/u);
   assert.match(handler, /new CURLFile/u);

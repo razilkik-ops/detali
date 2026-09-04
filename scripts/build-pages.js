@@ -12,7 +12,7 @@ const formAction = process.env.FORM_ACTION || 'https://spetstehosnastka.by/api/s
 const configuredBasePath = process.env.STATIC_BASE_PATH ?? '/detali';
 const basePath = configuredBasePath === '/' ? '' : `/${configuredBasePath.replace(/^\/+|\/+$/gu, '')}`;
 const year = new Date().getFullYear();
-const lastModified = '2026-09-03';
+const lastModified = '2026-09-04';
 const safeJsonLd = (value) => JSON.stringify(value).replace(/</g, '\\u003c');
 
 const metaDefaults = {
